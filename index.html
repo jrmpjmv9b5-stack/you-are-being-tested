@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071412">
+<title>YOU ARE BEING TESTED</title>
+<style>
+:root{
+  --bg:#071412; --ink:#f1e8d8; --muted:#9ba59e; --line:#31423e;
+  --gold:#c9a06a; --cream:#efe1c9; --teal:#315e59; --rose:#a77b78;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh;overflow-x:hidden}
+button{font:inherit}
+#app{min-height:100vh;display:flex;justify-content:center}
+.screen{width:100%;max-width:560px;min-height:100vh;padding:28px 22px 34px;position:relative;overflow:hidden}
+.hidden{display:none!important}
+.fade{animation:fade .55s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.top{display:flex;justify-content:space-between;align-items:center;color:#8f9993;font-size:10px;letter-spacing:2.2px;text-transform:uppercase}
+.logo{font-size:10px;letter-spacing:4px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between}
+.art{height:47vh;min-height:330px;max-height:520px;margin:-28px -22px 0;position:relative;overflow:hidden;background:#0a1715}
+.art svg{width:100%;height:100%;display:block}
+.heroText{padding-top:28px}
+.kicker{font-size:11px;letter-spacing:3px;color:#b9a98f;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(42px,12vw,68px);line-height:.9;letter-spacing:-2px;margin:0 0 22px}
+.lead{font-size:16px;line-height:1.65;color:#b3bcb6;max-width:440px}
+.cta{border:1px solid var(--cream);background:var(--cream);color:#071412;border-radius:999px;padding:16px 22px;width:100%;font-weight:650;letter-spacing:1.5px;margin-top:28px}
+.footerNote{font-size:10px;letter-spacing:1.6px;color:#66716c;text-transform:uppercase;margin-top:20px}
+.progressWrap{margin:26px 0 24px}
+.progressMeta{display:flex;justify-content:space-between;color:#78847e;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+.progress{height:2px;background:#22312e}
+.bar{height:100%;width:0;background:var(--cream);transition:width .45s ease}
+.sceneArt{height:38vh;min-height:280px;max-height:430px;margin:0 -22px 25px;overflow:hidden;border-top:1px solid #1e2d29;border-bottom:1px solid #1e2d29}
+.sceneArt svg{width:100%;height:100%;display:block}
+.question{font-family:Georgia,serif;font-size:26px;line-height:1.28;margin:0 0 20px}
+.option{width:100%;display:flex;align-items:center;gap:13px;background:rgba(10,22,20,.7);border:1px solid var(--line);color:var(--ink);border-radius:13px;padding:15px 14px;margin:8px 0;text-align:left;transition:.18s}
+.option:active{transform:scale(.985);border-color:#a7b0aa;background:#12231f}
+.badge{width:27px;height:27px;border:1px solid #66746d;border-radius:50%;display:grid;place-items:center;flex:0 0 27px;font-size:12px;color:#d7cfbf}
+.optionText{line-height:1.35;font-size:15px}
+.pause{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.pause .orb{width:210px;height:210px;border-radius:50%;margin-bottom:35px;background:radial-gradient(circle at 38% 35%,#d4b078 0 5%,#42625d 6% 24%,#0b1917 25% 65%,#071412 66%);box-shadow:0 0 0 1px #5c756c,0 0 80px #315e5933}
+.pause p{color:#9ba59e;line-height:1.7;max-width:360px}
+.analysis{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.analysisArt{height:270px;margin:0 -22px 30px}
+.analysisArt svg{width:100%;height:100%}
+.scan{height:2px;background:#22312e;margin:25px 0}
+.scan i{display:block;height:100%;width:72%;background:var(--cream);animation:scan 1.8s ease-in-out infinite alternate}
+@keyframes scan{from{width:18%}to{width:92%}}
+.scanList{list-style:none;padding:0;margin:0;color:#7e8983;font-size:12px;letter-spacing:1.5px;line-height:2.25;text-transform:uppercase}
+.resultArt{height:42vh;min-height:300px;max-height:470px;margin:0 -22px 25px}
+.resultArt svg{width:100%;height:100%}
+.resultTitle{font-family:Georgia,serif;font-size:40px;line-height:1.03;margin:0 0 17px}
+.resultText{color:#b3bcb6;line-height:1.7;font-size:15px}
+.insight{border:1px solid #2d3d39;border-radius:15px;padding:18px;margin-top:22px;background:#0b1917}
+.insightLabel{font-size:10px;letter-spacing:2px;color:#8d9892;text-transform:uppercase;margin-bottom:9px}
+.insight strong{font-family:Georgia,serif;font-size:22px;font-weight:400}
+.small{font-size:10px;color:#66716c;line-height:1.6;margin-top:20px}
+.secondary{background:transparent;border:1px solid #53615b;color:#dcd5c7;border-radius:999px;padding:15px;width:100%;margin-top:10px;letter-spacing:1.3px}
+@media(min-width:700px){body{background:#030908}.screen{box-shadow:0 0 80px #0008}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/*
+  YOU ARE BEING TESTED — experimenteller Prototyp
+  Hinweis: Das ist kein klinisch validierter psychologischer Test.
+  Die Auswertung beschreibt Verhaltensmuster dieser Session.
+*/
+
+const scenes = [
+ {art:"door", q:"Du findest eine verschlossene Tür. Daneben liegt ein Schlüssel. Auf dem Schlüssel steht: „Benutze mich nicht.“ Was machst du?",
+  a:[
+   ["Ich benutze den Schlüssel.",{risk:2,explore:2}],
+   ["Ich untersuche zuerst die Tür.",{reflect:2,explore:1}],
+   ["Ich suche nach einem anderen Weg.",{explore:2,independent:2}],
+   ["Ich gehe weiter.",{caution:2}]
+ ]},
+ {art:"money", q:"Du bekommst unerwartet 50.000 €. Niemand weiß davon. Was machst du zuerst?",
+  a:[
+   ["Ich investiere einen großen Teil.",{risk:2,reflect:1}],
+   ["Ich sichere das Geld erst einmal.",{caution:2,reflect:1}],
+   ["Ich erfülle mir sofort etwas.",{risk:2,independent:1}],
+   ["Ich erzähle einer vertrauten Person davon.",{social:2}]
+ ]},
+ {art:"message", q:"23:17 Uhr. Eine unbekannte Nummer schreibt: „Vertrau mir. Komm um Mitternacht allein hierher.“ Keine weitere Erklärung.",
+  a:[
+   ["Ich gehe hin.",{risk:3,explore:2}],
+   ["Ich frage nach mehr Informationen.",{reflect:3}],
+   ["Ich erzähle jemandem davon.",{social:3}],
+   ["Ich ignoriere die Nachricht.",{caution:3}]
+ ]},
+ {art:"paths", q:"Du stehst vor zwei Wegen. Einer ist bekannt, sicher und gut beleuchtet. Der andere ist neu und ungewiss – könnte dich aber an einen besonderen Ort führen.",
+  a:[
+   ["Den sicheren, bekannten Weg.",{caution:2}],
+   ["Den unbekannten Weg.",{explore:3,risk:1}],
+   ["Ich versuche, mehr herauszufinden.",{reflect:3}],
+   ["Ich entscheide spontan.",{independent:2,risk:1}]
+ ]},
+ {art:"group", q:"Alle anderen in einer Gruppe entscheiden sich für Option A. Du hast ein ungutes Gefühl dabei. Was machst du?",
+  a:[
+   ["Ich schließe mich an.",{social:3}],
+   ["Ich widerspreche.",{independent:3}],
+   ["Ich frage, warum alle A wählen.",{reflect:3}],
+   ["Ich sage nichts und beobachte.",{caution:1,social:1,reflect:1}]
+ ]},
+ {art:"idea", q:"Du hast eine Idee. Sie könnte großartig sein – oder komplett scheitern. Du weißt es nicht. Was tust du?",
+  a:[
+   ["Ich setze sie sofort um.",{risk:2,independent:1}],
+   ["Ich teste sie erst in kleinem Rahmen.",{reflect:2,risk:1}],
+   ["Ich hole weitere Informationen.",{reflect:3,caution:1}],
+   ["Ich verwerfe sie.",{caution:3}]
+ ]},
+ {art:"choice", q:"Du kannst 100 € sicher gewinnen oder mit 40 % Wahrscheinlichkeit 300 €. Du hast nur wenige Sekunden.",
+  a:[
+   ["100 € sicher.",{caution:3}],
+   ["300 € versuchen.",{risk:3}],
+   ["Ich rechne kurz.",{reflect:3}],
+   ["Ich entscheide nach Gefühl.",{independent:2,risk:1}]
+ ]},
+ {art:"mirror", q:"Ein Spiegel zeigt dir nicht dein Gesicht, sondern eine Version von dir, die eine Entscheidung anders getroffen hat. Schaust du genauer hin?",
+  a:[
+   ["Ja, sofort.",{explore:3}],
+   ["Nur kurz.",{explore:1,caution:1}],
+   ["Ich suche erst nach einer Erklärung.",{reflect:3}],
+   ["Nein.",{caution:2,independent:1}]
+ ]},
+ {art:"clock", q:"Du hast noch 30 Minuten. Eine Aufgabe ist fast gelöst. Eine neue Spur könnte schneller sein – oder dich zurück auf Anfang werfen.",
+  a:[
+   ["Ich bleibe beim Plan.",{caution:2,reflect:1}],
+   ["Ich folge der neuen Spur.",{explore:2,risk:2}],
+   ["Ich prüfe beide Möglichkeiten.",{reflect:3}],
+   ["Ich entscheide aus dem Bauch.",{independent:2}]
+ ]},
+ {art:"bridge", q:"Vor dir ist eine schmale Brücke. Du weißt, dass sie hält. Trotzdem wirkt sie instabil. Ein anderer Weg dauert eine Stunde länger.",
+  a:[
+   ["Ich nehme die Brücke.",{risk:2}],
+   ["Ich nehme den längeren Weg.",{caution:3}],
+   ["Ich untersuche die Brücke.",{reflect:3,explore:1}],
+   ["Ich frage jemanden, der gerade zurückkommt.",{social:3}]
+ ]},
+ {art:"signal", q:"Ein Signal taucht auf: „Wenn du jetzt weitergehst, kannst du nicht zurück.“ Du weißt nicht, was danach kommt.",
+  a:[
+   ["Ich gehe weiter.",{risk:2,explore:3}],
+   ["Ich bleibe.",{caution:3}],
+   ["Ich suche nach einem Umweg.",{explore:2,independent:1}],
+   ["Ich warte und beobachte.",{reflect:2,caution:1}]
+ ]},
+ {art:"crowd", q:"Eine Menschenmenge rennt plötzlich in dieselbe Richtung. Du weißt nicht warum. Was ist dein erster Impuls?",
+  a:[
+   ["Ich renne mit.",{social:3}],
+   ["Ich bleibe stehen.",{independent:2,caution:1}],
+   ["Ich versuche herauszufinden, warum.",{reflect:3}],
+   ["Ich gehe bewusst in die andere Richtung.",{independent:3}]
+ ]},
+ {art:"trade", q:"Du kannst heute 1.000 € bekommen oder in einem Jahr 2.000 €. Niemand garantiert, dass du die zweite Option dann noch willst.",
+  a:[
+   ["1.000 € heute.",{caution:2,risk:1}],
+   ["2.000 € später.",{risk:2}],
+   ["Ich überlege, was sich in einem Jahr ändern könnte.",{reflect:3}],
+   ["Ich entscheide spontan.",{independent:2}]
+ ]},
+ {art:"door2", q:"Eine Tür ist mit „BEKANNT“ beschriftet. Die andere mit „MÖGLICH“. Welche zieht dich stärker an?",
+  a:[
+   ["BEKANNT.",{caution:3}],
+   ["MÖGLICH.",{explore:3}],
+   ["Keine – ich will erst wissen, was dahinter ist.",{reflect:3}],
+   ["Ich wähle die, die niemand empfiehlt.",{independent:3}]
+ ]},
+ {art:"failure", q:"Du hast eine Entscheidung getroffen und sie war falsch. Jetzt bekommst du eine zweite Chance. Was änderst du?",
+  a:[
+   ["Ich mache es genau anders.",{independent:2}],
+   ["Ich analysiere zuerst meinen Fehler.",{reflect:3}],
+   ["Ich nehme diesmal die sichere Variante.",{caution:2}],
+   ["Ich versuche etwas völlig Neues.",{explore:3,risk:1}]
+ ]},
+ {art:"finale", q:"Du darfst eine letzte Frage stellen. Niemand kann dir garantieren, dass die Antwort angenehm ist. Was fragst du?",
+  a:[
+   ["Was habe ich übersehen?",{reflect:3}],
+   ["Was passiert als Nächstes?",{explore:3}],
+   ["Was wäre die sicherste Entscheidung?",{caution:3}],
+   ["Was würdest du an meiner Stelle tun?",{social:3}]
+ ]}
+];
+
+const labels={
+ risk:"Risikobereitschaft", caution:"Vorsicht", reflect:"Reflexion",
+ explore:"Exploration", social:"soziale Orientierung", independent:"Eigenständigkeit"
+};
+
+let state={i:0,score:{risk:0,caution:0,reflect:0,explore:0,social:0,independent:0},times:[],choices:[]};
+
+function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+function art(type){
+ const common=`<defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071412"/><stop offset=".55" stop-color="#17322e"/><stop offset="1" stop-color="#071412"/></linearGradient>
+ <radialGradient id="moon"><stop stop-color="#f0dfc0"/><stop offset=".55" stop-color="#c9a06a"/><stop offset="1" stop-color="#8e6845"/></radialGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="16"/></filter>
+ </defs>
+ <rect width="100%" height="100%" fill="url(#g)"/>
+ <circle cx="82%" cy="18%" r="52" fill="#c9a06a" opacity=".18" filter="url(#blur)"/>
+ <circle cx="82%" cy="18%" r="34" fill="url(#moon)" opacity=".9"/>`;
+ let body="";
+ if(type==="door"||type==="door2") body=`<path d="M0 78% Q30 55% 52% 72% T100% 62% V100H0Z" fill="#08110f"/><path d="M43% 75V29Q50% 20 57% 29V75" fill="#0a1412" stroke="#d9c5a5" stroke-width="1.2"/><path d="M50% 30V73" stroke="#b48a5d" stroke-width="3"/><circle cx="54%" cy="53%" r="4" fill="#e7d7bb"/><circle cx="26%" cy="64%" r="18" fill="none" stroke="#b58a59" opacity=".55"/><circle cx="26%" cy="64%" r="4" fill="#b58a59"/>`;
+ else if(type==="money") body=`<path d="M0 74% Q45 55% 100 76V100H0Z" fill="#050b0a"/><rect x="24%" y="40%" width="52%" height="28%" rx="8" fill="#111b19" stroke="#b58a59"/><path d="M29% 47h42v14H29z" fill="#b9a07a" opacity=".8"/><path d="M35% 43l30 23M43% 43l30 23M27% 55h46" stroke="#d8c59f" opacity=".45"/>`;
+ else if(type==="message") body=`<path d="M0 100V62Q30 48 100 66V100Z" fill="#050a09"/><circle cx="22%" cy="45%" r="10" fill="#b58a59"/><path d="M20% 45h44q8 0 8 8v22q0 8-8 8H35l-14 10 4-10h-5q-8 0-8-8V53q0-8 8-8Z" fill="#d9d2c5" opacity=".92"/><path d="M28% 57h32M28% 66h22" stroke="#31423e" stroke-width="2"/>`;
+ else if(type==="paths") body=`<path d="M0 100L45 61 36 44 51 0h49v100Z" fill="#0b1a17"/><path d="M47 100Q44 77 56 61T46 34Q40 17 55 0" fill="none" stroke="#e1cda9" stroke-width="5"/><path d="M48 100Q70 76 72 58T68 28Q71 12 89 0" fill="none" stroke="#53736a" stroke-width="5"/><circle cx="55%" cy="23%" r="14" fill="none" stroke="#c9a06a" opacity=".7"/>`;
+ else if(type==="group"||type==="crowd") body=`<g fill="#091310" stroke="#6b8178" stroke-width="1"><circle cx="18%" cy="48%" r="13"/><circle cx="32%" cy="42%" r="13"/><circle cx="50%" cy="38%" r="15"/><circle cx="68%" cy="42%" r="13"/><circle cx="82%" cy="48%" r="13"/><path d="M8 82q10-25 20 0M24 82q8-30 16 0M40 82q10-34 20 0M60 82q8-30 16 0M76 82q10-25 20 0"/></g><circle cx="50%" cy="18%" r="8" fill="#c9a06a"/>`;
+ else if(type==="idea") body=`<path d="M0 88Q28 70 52 78T100 62V100H0Z" fill="#08100e"/><path d="M48 80Q38 64 48 50Q58 37 69 49Q78 61 65 74L58 84Z" fill="#c9a06a" opacity=".8"/><circle cx="58%" cy="55%" r="32" fill="none" stroke="#c9a06a" opacity=".35"/><circle cx="58%" cy="55%" r="50" fill="none" stroke="#c9a06a" opacity=".15"/>`;
+ else if(type==="choice") body=`<circle cx="31%" cy="58%" r="62" fill="#10231f" stroke="#c9a06a" opacity=".9"/><circle cx="70%" cy="58%" r="62" fill="#c9a06a" opacity=".75"/><path d="M50% 12V88" stroke="#efe1c9" opacity=".5"/><text x="31%" y="61%" fill="#efe1c9" font-size="18" text-anchor="middle">100</text><text x="70%" y="61%" fill="#071412" font-size="18" text-anchor="middle">300</text>`;
+ else if(type==="mirror") body=`<ellipse cx="50%" cy="50%" rx="105" ry="145" fill="#091310" stroke="#c9a06a" stroke-width="1.5"/><path d="M50 85Q72 110 50 138Q28 110 50 85Z" fill="#315e59"/><circle cx="50" cy="72" r="18" fill="#bda789"/><path d="M0 100Q25 70 42 78T100 55V100Z" fill="#050b0a" opacity=".7"/>`;
+ else if(type==="clock") body=`<circle cx="50%" cy="50%" r="96" fill="#0b1917" stroke="#c9a06a" stroke-width="2"/><circle cx="50%" cy="50%" r="5" fill="#efe1c9"/><path d="M50% 50L50% 25M50% 50L70% 62" stroke="#efe1c9" stroke-width="3"/><path d="M50% 50L22% 72" stroke="#c9a06a" stroke-width="1"/><circle cx="50%" cy="50%" r="124" fill="none" stroke="#315e59" opacity=".7"/>`;
+ else if(type==="bridge") body=`<path d="M0 100Q22 72 42 64T100 45V100Z" fill="#07100e"/><path d="M12 78Q50 55 88 76" fill="none" stroke="#c9a06a" stroke-width="7"/><path d="M24 72V86M40 64V80M57 62V79M74 65V84" stroke="#789087"/><circle cx="78%" cy="20%" r="26" fill="none" stroke="#d8c5a4"/>`;
+ else if(type==="signal") body=`<circle cx="50%" cy="52%" r="92" fill="#0a1916" stroke="#315e59"/><circle cx="50%" cy="52%" r="55" fill="none" stroke="#c9a06a"/><circle cx="50%" cy="52%" r="8" fill="#efe1c9"/><path d="M50% 0V35M50% 69V100M0 52H35M65 52h35" stroke="#8da098" opacity=".5"/><path d="M15% 80Q50 45 85 80" fill="none" stroke="#c9a06a" opacity=".5"/>`;
+ else if(type==="trade") body=`<path d="M18 70L50 34 82 70" fill="none" stroke="#c9a06a" stroke-width="5"/><circle cx="25%" cy="70%" r="14" fill="#315e59"/><circle cx="75%" cy="70%" r="14" fill="#c9a06a"/><path d="M50% 20V88" stroke="#efe1c9" opacity=".3"/>`;
+ else if(type==="failure") body=`<path d="M0 84Q30 58 48 70T100 55V100H0Z" fill="#07100e"/><path d="M22 76L42 57 58 73 80 45" fill="none" stroke="#c9a06a" stroke-width="4"/><circle cx="80%" cy="45%" r="8" fill="#efe1c9"/><path d="M12% 30Q50 5 88 30" fill="none" stroke="#315e59" stroke-width="2"/>`;
+ else body=`<circle cx="50%" cy="58%" r="70" fill="#0a1815" stroke="#c9a06a"/><circle cx="50%" cy="58%" r="44" fill="none" stroke="#315e59"/><path d="M50% 58L50% 26M50% 58L72% 72" stroke="#efe1c9" stroke-width="3"/><circle cx="50%" cy="58%" r="5" fill="#c9a06a"/>`;
+ return `<svg viewBox="0 0 100 100" preserveAspectRatio="none">${common}${body}<path d="M0 90Q25 70 50 88T100 72V100H0Z" fill="#050b0a" opacity=".72"/></svg>`;
+}
+
+function start(){
+ render(`<div class="screen hero fade">
+   <div class="art">${art("door")}</div>
+   <div class="heroText">
+    <div class="kicker">Experiment 001 · Interaktive Studie</div>
+    <h1>YOU ARE<br>BEING<br>TESTED.</h1>
+    <div class="lead">16 Situationen. Keine richtigen Antworten.<br>Wir interessieren uns nicht nur dafür, <em>was</em> du wählst.</div>
+    <button class="cta" onclick="game()">BEGINNEN&nbsp; →</button>
+    <div class="footerNote">Entscheidungen · Muster · Reaktionszeit · Konsistenz</div>
+   </div>
+ </div>`);
+}
+
+function game(){
+ state={i:0,score:{risk:0,caution:0,reflect:0,explore:0,social:0,independent:0},times:[],choices:[]};
+ showQ();
+}
+
+function showQ(){
+ const s=scenes[state.i];
+ state.started=performance.now();
+ render(`<div class="screen fade">
+  <div class="top"><span>Experiment 001</span><span>${String(state.i+1).padStart(2,"0")} / ${scenes.length}</span></div>
+  <div class="progressWrap"><div class="progressMeta"><span>Beobachtung</span><span>${Math.round(state.i/scenes.length*100)}%</span></div><div class="progress"><div class="bar" style="width:${state.i/scenes.length*100}%"></div></div></div>
+  <div class="sceneArt">${art(s.art)}</div>
+  <div class="question">${esc(s.q)}</div>
+  <div>${s.a.map((x,i)=>`<button class="option" onclick="answer(${i})"><span class="badge">${String.fromCharCode(65+i)}</span><span class="optionText">${esc(x[0])}</span></button>`).join("")}</div>
+ </div>`);
+}
+
+function answer(n){
+ const ms=Math.max(250,Math.round(performance.now()-state.started));
+ state.times.push(ms); state.choices.push(n);
+ const traits=scenes[state.i].a[n][1];
+ Object.keys(traits).forEach(k=>state.score[k]+=traits[k]);
+ state.i++;
+ if(state.i===8){ pause(); return; }
+ if(state.i>=scenes.length){analysis();return;}
+ showQ();
+}
+
+function pause(){
+ render(`<div class="screen pause fade"><div class="orb"></div><div class="kicker">Kurze Pause</div><h1 style="font-size:43px">NICHT<br>ZU SCHNELL.</h1><p>Die nächsten Situationen sind nicht schwieriger. Sie sind nur anders.</p><button class="cta" onclick="showQ()">WEITER&nbsp; →</button></div>`);
+}
+
+function analysis(){
+ render(`<div class="screen analysis fade"><div class="analysisArt">${art("signal")}</div><div class="kicker">Analyse läuft</div><h1 style="font-size:48px">WIR SUCHEN<br>NACH MUSTERN.</h1><div class="scan"><i></i></div><ul class="scanList"><li>Entscheidungen</li><li>Reaktionszeiten</li><li>Konsistenz</li><li>Risikoverhalten</li><li>Exploration</li><li>Reflexion</li><li>soziale Orientierung</li></ul></div>`);
+ setTimeout(result,2400);
+}
+
+function result(){
+ const entries=Object.entries(state.score).sort((a,b)=>b[1]-a[1]);
+ const top=entries[0][0], second=entries[1][0];
+ const avg=state.times.reduce((a,b)=>a+b,0)/state.times.length;
+ const fast=state.times.filter(x=>x<3500).length;
+ const r=profiles(top,second);
+ render(`<div class="screen fade">
+   <div class="top"><span>Analysis complete</span><span>001</span></div>
+   <div class="resultArt">${art(r.art)}</div>
+   <div class="kicker">Dein stärkstes Muster</div>
+   <div class="resultTitle">${r.title}</div>
+   <div class="resultText">${r.text}</div>
+   <div class="insight"><div class="insightLabel">Was uns aufgefallen ist</div><strong>${r.insight}</strong></div>
+   <div class="insight"><div class="insightLabel">Dein Entscheidungsstil</div><strong>${r.style}</strong></div>
+   <div class="small">Ø Reaktionszeit: ${Math.round(avg/100)/10}s · ${fast} von ${state.times.length} Entscheidungen unter 3,5s.<br><br>Dieses Ergebnis beschreibt dein Verhalten in diesem Experiment. Es ist keine klinische oder diagnostische psychologische Beurteilung.</div>
+   <button class="cta" onclick="location.reload()">NOCH EINMAL&nbsp; →</button>
+   <button class="secondary" onclick="showProfile()">DETAILAUSWERTUNG</button>
+ </div>`);
+}
+
+function profiles(top,second){
+ const p={
+  risk:{art:"paths",title:"DU GEHST<br>INS UNBEKANNTE.",text:"Du wirkst nicht grundsätzlich risikofreudig. Auffällig ist eher, dass Unsicherheit für dich akzeptabel wird, sobald eine Möglichkeit interessant genug erscheint.",insight:"Du scheinst lieber eine echte Möglichkeit zu verfolgen als eine perfekte Sicherheit zu besitzen.",style:"Möglichkeit vor Gewissheit"},
+  caution:{art:"bridge",title:"DU SUCHST<br>KONTROLLE.",text:"Du scheinst Unsicherheit nicht automatisch zu meiden – aber du möchtest verstehen, worauf du dich einlässt. Kontrolle ist für dich offenbar wertvoll.",insight:"Du bezahlst lieber einen kleinen Preis für Sicherheit, als eine große Ungewissheit zu akzeptieren.",style:"Sicherheit vor Tempo"},
+  reflect:{art:"clock",title:"DU WILLST<br>VERSTEHEN.",text:"Dein auffälligstes Muster ist nicht eine bestimmte Antwort, sondern der Versuch, die Struktur hinter einer Entscheidung zu erkennen, bevor du dich festlegst.",insight:"Wenn andere schon handeln, suchst du häufig noch nach der Information, die alles verändert.",style:"Verstehen vor Handeln"},
+  explore:{art:"mirror",title:"DAS UNBEKANNTE<br>ZIEHT DICH AN.",text:"Du reagierst auffällig stark auf offene Möglichkeiten. Ungewissheit scheint für dich nicht nur ein Risiko zu sein, sondern auch einen eigenen Reiz zu besitzen.",insight:"Du wählst häufiger die Tür, hinter der noch keine Antwort wartet.",style:"Entdecken vor Absichern"},
+  social:{art:"group",title:"DU LIEST<br>DEN RAUM.",text:"Andere Menschen liefern dir offenbar wichtige Informationen. Du orientierst dich nicht blind an ihnen – du nimmst soziale Signale ernst.",insight:"Du beobachtest nicht nur die Entscheidung. Du beobachtest, wie andere entscheiden.",style:"Kontext vor Isolation"},
+  independent:{art:"signal",title:"DU LÄSST DICH<br>UNGern STEUERN.",text:"Du scheinst relativ stark nach deinem eigenen Urteil zu handeln. Eine Mehrheitsentscheidung verliert an Gewicht, wenn sie nicht zu deinem inneren Modell passt.",insight:"Du kannst eine unbequeme eigene Entscheidung einer bequemen gemeinsamen Entscheidung vorziehen.",style:"Eigenes Urteil vor Konsens"}
+ };
+ const a=p[top], b=labels[second];
+ return {...a,insight:a.insight+` Zweites Muster: ${b}.`};
+}
+
+function showProfile(){
+ const max=Math.max(...Object.values(state.score));
+ const rows=Object.entries(state.score).map(([k,v])=>`<div style="margin:14px 0"><div class="progressMeta"><span>${labels[k]}</span><span>${Math.round(v/max*100)}%</span></div><div class="progress"><div class="bar" style="width:${v/max*100}%"></div></div></div>`).join("");
+ render(`<div class="screen fade"><div class="top"><span>Detailanalyse</span><span>001</span></div><div class="kicker" style="margin-top:60px">Dein Musterprofil</div><h1 style="font-size:48px">MEHR ALS<br>EINE ANTWORT.</h1>${rows}<div class="small">Die Skalen sind relative Verhaltensindikatoren innerhalb dieser Session und keine normierten psychologischen Testwerte.</div><button class="cta" onclick="result()">ZURÜCK&nbsp; →</button></div>`);
+}
+
+function render(x){document.getElementById("app").innerHTML=x;window.scrollTo(0,0)}
+start();
+</script>
+</body>
+</html>
