@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>EARTH LIVE — Planetary Observatory</title>
+<style>
+:root{--fg:#eef5ff;--muted:#8290a6;--line:rgba(190,215,255,.18);--glass:rgba(4,9,18,.66)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#010207;color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;position:fixed;inset:0;overscroll-behavior:none;touch-action:none}#space,#earth{position:fixed;inset:0;width:100%;height:100%;display:block}#space{background:radial-gradient(circle at 50% 45%,#07172b 0,#020711 42%,#010207 78%)}
+.ui{position:fixed;inset:0;pointer-events:none}.top{position:absolute;top:max(18px,env(safe-area-inset-top));left:20px;right:20px;display:flex;justify-content:space-between;align-items:flex-start}.brand{font-size:13px;font-weight:800;letter-spacing:.3em}.sub{margin-top:7px;font-size:9px;letter-spacing:.18em;color:var(--muted)}.live{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:.18em;color:#79e2b1}.live i{width:7px;height:7px;border-radius:50%;background:#79e2b1;box-shadow:0 0 15px #79e2b1}
+.panel{position:absolute;left:18px;top:92px;padding:12px 14px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:14px;font-size:9px;letter-spacing:.11em;color:#b8c7dc;line-height:1.75}.panel b{color:#fff;font-weight:650}.panel .ok{color:#79e2b1}.panel .warn{color:#ffc878}.panel .red{color:#ff8f8f}
+.bottom{position:absolute;left:20px;right:20px;bottom:max(18px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:flex-end}.hint{font-size:8px;letter-spacing:.14em;color:#6f7c92}.data{text-align:right;font-variant-numeric:tabular-nums}.data strong{font-size:12px;letter-spacing:.1em}.data small{display:block;margin-top:5px;color:#65738a;font-size:8px;letter-spacing:.1em}
+.controls{position:absolute;right:20px;bottom:max(66px,calc(env(safe-area-inset-bottom) + 56px));display:flex;gap:8px;pointer-events:auto}.btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--glass);color:#eaf3ff;font-size:17px;display:grid;place-items:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 30px #0007}.btn:active{transform:scale(.94)}
+#intro{position:fixed;inset:0;z-index:20;background:radial-gradient(circle at 50% 48%,#08182d,#010207 65%);display:grid;place-items:center;text-align:center;transition:opacity .7s}.introBox{width:min(88vw,420px)}.introTitle{font-size:24px;letter-spacing:.34em;font-weight:800}.introSub{margin-top:12px;color:#7f8da3;font-size:9px;letter-spacing:.2em}.enter{margin-top:36px;padding:15px 26px;border:1px solid rgba(180,215,255,.3);border-radius:999px;background:rgba(15,31,54,.72);color:#edf6ff;font-size:10px;letter-spacing:.22em}.source{margin-top:24px;color:#4f5c70;font-size:8px;line-height:1.7;letter-spacing:.08em}
+#info{position:fixed;z-index:12;left:50%;bottom:105px;transform:translateX(-50%);width:min(86vw,360px);padding:13px 15px;border:1px solid var(--line);border-radius:15px;background:rgba(3,8,16,.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;pointer-events:none;transition:.25s;font-size:9px;line-height:1.65;letter-spacing:.06em}#info.show{opacity:1}
+@media(max-width:600px){.top{left:16px;right:16px}.panel{top:88px;left:16px;font-size:8px}.bottom{left:16px;right:16px}.controls{right:16px}.hint{max-width:150px}.data strong{font-size:10px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="space"></div><canvas id="earth"></canvas>
+<div id="intro"><div class="introBox"><div class="introTitle">EARTH LIVE</div><div class="introSub">A LIVING PLANETARY OBSERVATORY</div><button class="enter" id="enter">ENTER EARTH LIVE</button><div class="source">REAL EARTH TEXTURE · LIVE SEISMIC DATA · LIVE WEATHER · AMBIENT AUDIO</div></div></div>
+<div class="ui">
+<div class="top"><div><div class="brand">EARTH LIVE</div><div class="sub">PLANETARY OBSERVATORY</div></div><div class="live"><i></i>LIVE</div></div>
+<div class="panel"><div>EARTHQUAKES <b id="eqCount">—</b></div><div>STORM CELLS <b id="stormCount">—</b></div><div>DATA <span class="ok" id="dataStatus">CONNECTING</span></div><div>UTC <b id="clock">--:--:--</b></div></div>
+<div class="bottom"><div class="hint">ONE FINGER · ROTATE<br>TWO FINGERS · ROTATE + ZOOM<br>WHEEL · ZOOM</div><div class="data"><strong id="coords">50.0° N · 8.0° E</strong><small id="updated">WAITING FOR LIVE DATA</small></div></div>
+<div class="controls"><button class="btn" id="sound" title="Sound">♪</button><button class="btn" id="reset" title="Reset">↺</button></div>
+</div><div id="info"></div>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+
+const canvas=document.querySelector('#earth');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setSize(innerWidth,innerHeight,false);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(35,innerWidth/innerHeight,.1,100);camera.position.set(0,0,3.15);
+const controls=new OrbitControls(camera,canvas);controls.enablePan=false;controls.enableDamping=true;controls.dampingFactor=.055;controls.rotateSpeed=.5;controls.zoomSpeed=.72;controls.minDistance=1.55;controls.maxDistance=5.6;controls.touches.ONE=THREE.TOUCH.ROTATE;controls.touches.TWO=THREE.TOUCH.DOLLY_ROTATE;controls.autoRotate=true;controls.autoRotateSpeed=.12;controls.target.set(0,0,0);controls.update();
+
+const TEX='https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/';
+const loader=new THREE.TextureLoader();
+const day=loader.load(TEX+'earth_atmos_2048.jpg');day.colorSpace=THREE.SRGBColorSpace;
+const night=loader.load(TEX+'earth_lights_2048.png');night.colorSpace=THREE.SRGBColorSpace;
+const cloudsTex=loader.load(TEX+'earth_clouds_2048.png');cloudsTex.colorSpace=THREE.SRGBColorSpace;
+const normal=loader.load(TEX+'earth_normal_2048.jpg');
+
+const earthGroup=new THREE.Group();scene.add(earthGroup);
+const earthMat=new THREE.ShaderMaterial({uniforms:{dayTex:{value:day},nightTex:{value:night},sunDir:{value:new THREE.Vector3(1,0,1).normalize()},normalMap:{value:normal}},vertexShader:`varying vec2 vUv;varying vec3 vN;varying vec3 vP;void main(){vUv=uv;vN=normalize(normalMatrix*normal);vP=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`uniform sampler2D dayTex;uniform sampler2D nightTex;uniform vec3 sunDir;varying vec2 vUv;varying vec3 vN;varying vec3 vP;void main(){vec3 n=normalize(vP);float d=dot(n,sunDir);float f=smoothstep(-.16,.18,d);vec3 a=texture2D(dayTex,vUv).rgb;vec3 b=texture2D(nightTex,vUv).rgb*1.55;float rim=pow(1.-max(0.,dot(n,normalize(cameraPosition))),3.0);vec3 c=mix(b,a,f);c+=vec3(.04,.14,.32)*rim;gl_FragColor=vec4(c,1.);}`});
+const earth=new THREE.Mesh(new THREE.SphereGeometry(1,96,96),earthMat);earthGroup.add(earth);
+const clouds=new THREE.Mesh(new THREE.SphereGeometry(1.012,80,80),new THREE.MeshPhongMaterial({map:cloudsTex,transparent:true,opacity:.43,depthWrite:false}));earthGroup.add(clouds);
+const atmo=new THREE.Mesh(new THREE.SphereGeometry(1.045,72,72),new THREE.ShaderMaterial({transparent:true,side:THREE.BackSide,blending:THREE.AdditiveBlending,vertexShader:`varying vec3 n;void main(){n=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`varying vec3 n;void main(){float a=pow(1.-max(0.,dot(n,vec3(0.,0.,1.))),2.8);gl_FragColor=vec4(.15,.48,1.,a*.48);}`}));earthGroup.add(atmo);
+
+const stars=new THREE.BufferGeometry(),sp=[];for(let i=0;i<5000;i++){let r=18,th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1);sp.push(r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph),r*Math.sin(ph)*Math.sin(th))}stars.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));scene.add(new THREE.Points(stars,new THREE.PointsMaterial({color:0xbdd2ee,size:.018,transparent:true,opacity:.75,sizeAttenuation:true})));
+const sun=new THREE.DirectionalLight(0xffffff,2.1);scene.add(sun);scene.add(new THREE.AmbientLight(0x516b8d,.12));
+
+// Real-time Earth data layers
+const eqGroup=new THREE.Group();const stormGroup=new THREE.Group();earthGroup.add(eqGroup,stormGroup);
+function marker(lat,lon,r=.018,color=0xff9b5e){const a=lat*Math.PI/180,b=lon*Math.PI/180;const p=new THREE.Vector3(Math.cos(a)*Math.sin(b),Math.sin(a),Math.cos(a)*Math.cos(b));const m=new THREE.Mesh(new THREE.SphereGeometry(r,12,12),new THREE.MeshBasicMaterial({color}));m.position.copy(p.multiplyScalar(1.025));m.userData={lat,lon};return m}
+function addStorm(lat,lon){const g=new THREE.Group();g.userData={lat,lon,type:'storm'};const dot=marker(lat,lon,.026,0x8ee8ff);g.add(dot);const ring=new THREE.Mesh(new THREE.RingGeometry(.035,.055,32),new THREE.MeshBasicMaterial({color:0x68d9ff,transparent:true,opacity:.65,side:THREE.DoubleSide}));ring.position.copy(dot.position).multiplyScalar(1.012);ring.lookAt(dot.position.clone().multiplyScalar(2));g.add(ring);stormGroup.add(g)}
+function clearGroup(g){while(g.children.length){const o=g.children.pop();o.traverse(x=>{x.geometry?.dispose();x.material?.dispose()})}}
+
+async function loadQuakes(){try{const r=await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',{cache:'no-store'});const j=await r.json();clearGroup(eqGroup);j.features.forEach(f=>{const [lon,lat]=f.geometry.coordinates;const m=marker(lat,lon,Math.max(.008,Math.min(.035,(f.properties.mag||1)*.006)),0xffa35e);m.userData=f.properties;eqGroup.add(m)});document.querySelector('#eqCount').textContent=j.features.length;return true}catch(e){return false}}
+const weatherPts=[];for(let lat=-60;lat<=60;lat+=20)for(let lon=-180;lon<180;lon+=30)weatherPts.push([lat,lon]);
+async function loadWeather(){try{const lats=weatherPts.map(x=>x[0]).join(',');const lons=weatherPts.map(x=>x[1]).join(',');const u='https://api.open-meteo.com/v1/forecast?latitude='+lats+'&longitude='+lons+'&current=weather_code,temperature_2m,wind_speed_10m&timezone=UTC';const r=await fetch(u,{cache:'no-store'});const a=await r.json();clearGroup(stormGroup);let n=0;(Array.isArray(a)?a:[a]).forEach((x,i)=>{const code=x.current?.weather_code;if(code>=95){addStorm(weatherPts[i][0],weatherPts[i][1]);n++}});document.querySelector('#stormCount').textContent=n;return true}catch(e){document.querySelector('#stormCount').textContent='—';return false}}
+async function refresh(){const [a,b]=await Promise.all([loadQuakes(),loadWeather()]);document.querySelector('#dataStatus').textContent=a&&b?'CONNECTED':'PARTIAL';document.querySelector('#dataStatus').className=a&&b?'ok':'warn';document.querySelector('#updated').textContent='LIVE DATA · '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' UTC'}
+
+// Approximate real solar subpoint from UTC: enough to make the terminator track the actual date/time.
+function solarDirection(){const now=new Date();const dayOfYear=Math.floor((Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate())-Date.UTC(now.getUTCFullYear(),0,0))/86400000);const decl=23.44*Math.sin((2*Math.PI/365)*(dayOfYear-81))*Math.PI/180;const utc=now.getUTCHours()+now.getUTCMinutes()/60+now.getUTCSeconds()/3600;const lon=(12-utc)*15*Math.PI/180;earthMat.uniforms.sunDir.value.set(Math.cos(decl)*Math.cos(lon),Math.sin(decl),Math.cos(decl)*Math.sin(lon)).normalize();sun.position.copy(earthMat.uniforms.sunDir.value).multiplyScalar(5)}
+
+// Ambient sound starts from the explicit ENTER action, which avoids mobile autoplay blocking.
+let audio=null,soundOn=true;
+function startAudio(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=new AC();const master=audio.createGain();master.gain.value=.035;master.connect(audio.destination);const o=audio.createOscillator(),g=audio.createGain(),f=audio.createBiquadFilter();o.type='sine';o.frequency.value=46;f.type='lowpass';f.frequency.value=140;g.gain.value=.6;o.connect(f).connect(g).connect(master);o.start();const l=audio.createOscillator(),lg=audio.createGain();l.frequency.value=.055;lg.gain.value=9;l.connect(lg).connect(o.frequency);l.start();const o2=audio.createOscillator(),g2=audio.createGain();o2.type='triangle';o2.frequency.value=92;g2.gain.value=.035;o2.connect(g2).connect(master);o2.start();return master}
+let master=null;
+document.querySelector('#enter').onclick=async()=>{master=startAudio();if(audio?.state==='suspended')await audio.resume();document.querySelector('#intro').style.opacity=0;setTimeout(()=>document.querySelector('#intro').remove(),750)};
+document.querySelector('#sound').onclick=()=>{if(!master)return; soundOn=!soundOn;master.gain.setTargetAtTime(soundOn?.035:0,audio.currentTime,.12)};
+document.querySelector('#reset').onclick=()=>{camera.position.set(0,0,3.15);controls.target.set(0,0,0);controls.reset();controls.autoRotate=true};
+canvas.addEventListener('pointerdown',()=>controls.autoRotate=false,{passive:true});
+
+// Earth-only interaction: the document never receives scrolling/zooming gestures.
+canvas.addEventListener('wheel',e=>e.preventDefault(),{passive:false});
+function updateClock(){document.querySelector('#clock').textContent=new Date().toISOString().slice(11,19)}
+function coords(){const v=new THREE.Vector3(0,0,1).applyQuaternion(earthGroup.quaternion);const lat=Math.asin(v.y)*180/Math.PI,lon=Math.atan2(v.x,v.z)*180/Math.PI;document.querySelector('#coords').textContent=`${Math.abs(lat).toFixed(1)}° ${lat>=0?'N':'S'} · ${Math.abs(lon).toFixed(1)}° ${lon>=0?'E':'W'}`}
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);
+function animate(t){controls.update();clouds.rotation.y+=.00025;solarDirection();updateClock();coords();stormGroup.children.forEach((g,i)=>{const s=1+Math.sin(t*.004+i)*.16;g.scale.setScalar(s)});renderer.render(scene,camera);requestAnimationFrame(animate)}requestAnimationFrame(animate);
+refresh();setInterval(refresh,60000);
+</script>
+</body></html>
