@@ -1,0 +1,98 @@
+/* Final responsive polish for the live static build */
+
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+.site{width:100%;max-width:1680px;margin:0 auto}
+
+/* Keep the atmospheric visual clean: data belongs at the bottom, never over the sky. */
+.visual{isolation:isolate}
+.sceneCanvas{z-index:0;display:block}
+.visual:before,.visual:after{z-index:1}
+.weatherOrb,.visualTop,.visualBottom,.visualData{z-index:4}
+.visualData{bottom:78px!important;top:auto!important}
+.visualTop{top:27px!important;bottom:auto!important}
+.visualBottom{bottom:25px!important;top:auto!important}
+
+/* Never let compact labels run into their values. */
+.miniStats div,.sunTimes div,.visualData div{display:flex!important;flex-direction:column!important;gap:6px!important}
+.chartFoot span{white-space:nowrap}
+
+@media(max-width:700px){
+  .site{padding:0 12px 42px}
+  header{height:52px}
+  .wordmark{font-size:11px}
+  .live{font-size:7px}
+
+  .hero{display:flex!important;flex-direction:column!important;min-height:0!important}
+  .heroCopy{min-height:0!important;padding:42px 0 34px!important;display:flex!important;gap:58px!important;justify-content:flex-start!important}
+  h1{font-size:clamp(52px,15.5vw,66px)!important;line-height:.86!important;letter-spacing:-3.5px!important;margin:18px 0 22px!important}
+  .heroCopy>div:first-child p{font-size:13px!important;line-height:1.6!important;max-width:330px}
+  .current{margin-top:0!important;display:grid!important;grid-template-columns:1fr!important;align-items:start!important}
+  .temp{font-size:96px!important;line-height:.82!important;letter-spacing:-7px!important;margin:12px 0 8px!important}
+  .cond{font-size:21px!important;padding:0!important}
+  .meta{gap:10px 16px!important;margin-top:18px!important}
+
+  .visual{min-height:410px!important;height:410px!important}
+  .weatherOrb{width:100px!important;height:100px!important;right:10%!important;top:24%!important}
+  .weatherOrb span{font-size:43px!important}
+  .visualTop{left:15px!important;right:15px!important;top:18px!important;font-size:6px!important}
+  .visualData{left:15px!important;right:15px!important;bottom:55px!important;gap:22px!important;padding:12px 14px!important;background:rgba(246,243,236,.84)!important;border:1px solid rgba(16,23,34,.12)!important;backdrop-filter:blur(10px)!important}
+  .visualData b{font-size:14px!important}
+  .visualData small{font-size:6px!important}
+  .visualData span{font-size:6px!important}
+  .visualBottom{left:15px!important;right:15px!important;bottom:16px!important;font-size:6px!important}
+
+  .ticker{grid-template-columns:repeat(2,1fr)!important}
+  .ticker>div{min-height:74px!important;padding:12px!important}
+  .ticker b{font-size:24px!important}
+  .ticker>div:last-child{grid-column:span 2!important}
+
+  .radarSection,.dashboard,.forecast,.days,.region,.warnings{padding-top:54px!important}
+  .sectionTitle{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important;margin-bottom:18px!important}
+  .sectionTitle h2{font-size:32px!important;line-height:.98!important;letter-spacing:-1.4px!important}
+  .sectionTitle p{font-size:7px!important}
+  .radarFrame{height:390px!important}
+  .radarHud{left:10px!important;right:10px!important;top:10px!important}
+  .radarHud div{padding:8px 10px!important}
+  .radarControls{display:block!important}
+  .radarControls input{display:block;width:100%!important;margin-top:10px!important}
+
+  .dashboard{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  .dashboardLead{grid-column:auto!important;min-height:0!important}
+  .windCard,.sunCard{min-height:260px!important}
+  .dashboardLead h2{font-size:46px!important;letter-spacing:-2.5px!important}
+  .dashboardLead p{font-size:13px!important}
+  .miniStats{gap:22px!important;flex-wrap:wrap!important}
+
+  .chartCard{overflow:hidden!important}
+  .chart{height:150px!important}
+  .hours{grid-template-columns:repeat(3,1fr)!important}
+  .hour:nth-child(n+4){display:none!important}
+  .hour{min-height:118px!important;padding:12px 9px!important}
+  .hour strong{font-size:23px!important;margin-top:14px!important}
+  .hour span{font-size:6px!important}
+  .chartFoot{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important;padding:12px!important}
+  .chartFoot input{width:100%!important;margin:4px 0 0!important}
+
+  /* Actual seven-day cards: two columns, fixed rhythm, visible borders. */
+  .dayGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important;border-top:1px solid var(--line)!important;border-left:1px solid var(--line)!important}
+  .day{display:flex!important;min-width:0!important;min-height:155px!important;height:155px!important;padding:15px!important;border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;background:#fff!important}
+  .dayIcon{font-size:28px!important;margin:14px 0 9px!important}
+  .day b{font-size:26px!important}
+  .day span{font-size:13px!important}
+
+  .placeGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important}
+  .placeCard{min-width:0!important;min-height:132px!important;height:132px!important;padding:14px!important}
+  .placeCard strong{font-size:16px!important;margin-top:17px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .placeCard b{font-size:25px!important;margin-top:10px!important}
+
+  .warningGrid{display:grid!important;grid-template-columns:1fr!important}
+  .warningMain,.sourceCard{min-height:0!important;padding:20px!important}
+  .warningMain h3{font-size:20px!important;line-height:1.05!important}
+  .warningMain p{font-size:12px!important;line-height:1.5!important}
+  .site footer{margin-top:55px!important;gap:12px!important}
+}
+
+@media(min-width:701px){
+  .dayGrid{display:grid!important}
+  .placeGrid{display:grid!important}
+}
