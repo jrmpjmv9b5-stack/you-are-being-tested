@@ -1,0 +1,1 @@
+Regional photos sourced from Wikimedia Commons.
