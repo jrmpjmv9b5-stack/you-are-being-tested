@@ -27,10 +27,7 @@ function paint(){
  const selected=document.querySelector('.placeCard.selected');
  if(selected){const i=+selected.dataset.i,w=A.data[i],hero=document.querySelector('.hero');if(hero&&w){const old=hero.querySelector('.heroWeatherLayer');if(old)old.remove();hero.insertAdjacentHTML('beforeend',layer(codeType(w.current.weather_code),true));}}
 }
-let last=0;
-function schedule(){const now=Date.now();if(now-last<150)return;last=now;requestAnimationFrame(paint)}
-new MutationObserver(schedule).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
-document.addEventListener('click',e=>{if(e.target.closest('.placeCard'))setTimeout(schedule,30)});
-const boot=setInterval(()=>{if(A?.data?.length){paint();clearInterval(boot)}},300);
+document.addEventListener('click',e=>{if(e.target.closest('.placeCard'))setTimeout(paint,60)});
+const boot=setInterval(()=>{if(A?.data?.length&&document.querySelector('.placeCard')){paint();clearInterval(boot)}},300);
 setTimeout(()=>clearInterval(boot),15000);
 })();
