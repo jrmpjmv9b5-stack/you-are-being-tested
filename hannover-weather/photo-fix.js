@@ -9,7 +9,10 @@ function apply(){
   if(art){art.style.backgroundImage=`url("${url}")`;art.style.backgroundSize='cover';art.style.backgroundPosition='center center';}
  });
  const first=document.querySelector('.placeCard.selected'),hero=document.querySelector('.hero');
- if(first&&hero&&first.dataset.image){hero.style.backgroundImage=`url("${first.dataset.image}")`;hero.style.backgroundPosition='center 18px';hero.style.backgroundRepeat='no-repeat';hero.style.backgroundSize='min(760px,calc(100% - 48px)) auto';}
+ if(first&&hero&&first.dataset.image){
+  hero.style.setProperty('--hero-photo',`url("${first.dataset.image}")`);
+  hero.style.backgroundImage='none';
+ }
 }
 new MutationObserver(apply).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});setInterval(apply,1500);apply();
 })();
