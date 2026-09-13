@@ -1,0 +1,1 @@
+Regional photos use Wikimedia Commons files for the 20 places. The page applies them dynamically by place name.
