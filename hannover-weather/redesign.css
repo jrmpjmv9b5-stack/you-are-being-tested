@@ -1,24 +1,19 @@
-/* HERO — proportional photo, information-first layout */
-.hero{height:560px;background-color:#10202d;background-repeat:no-repeat;background-position:center top;background-size:100% auto;border-radius:0 0 28px 28px}
-.heroOverlay{background:linear-gradient(180deg,transparent 0%,transparent 25%,#10202d18 34%,#10202dd8 45%,#10202df2 58%,#10202d 72%,#10202d 100%),linear-gradient(90deg,#10202d48,transparent 65%)}
+/* HERO — preserve photo aspect ratio; use the surrounding space as the artwork */
+.hero{height:560px;background-color:#10202d;background-repeat:no-repeat;background-position:center 18px;background-size:min(760px,calc(100% - 48px)) auto;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+.heroOverlay{background:radial-gradient(ellipse at 50% 24%,#24577d88 0%,#10202d18 38%,#10202dcc 63%,#10202d 82%),linear-gradient(180deg,transparent 0%,transparent 38%,#10202df0 55%,#10202d 72%,#10202d 100%)}
 .heroTop{padding:0 34px}
-.heroDate{top:92px}
-.heroQuote{top:178px}
+.heroDate{top:92px}.heroQuote{top:178px}
 .heroStatus{top:auto;bottom:76px;left:34px;right:34px;width:auto;max-width:none;padding:20px 24px;border-radius:20px;background:#10202df0;display:block}
-.heroStatus .row{gap:28px}
-.heroTemp{font-size:62px}
-.heroFacts{font-size:12px;gap:8px;padding-left:22px}
+.heroStatus .row{gap:28px}.heroTemp{font-size:62px}.heroFacts{font-size:12px;gap:8px;padding-left:22px}
 .heroHint{left:34px;bottom:20px;right:auto;max-width:430px;padding:10px 15px}
 .heroFx{z-index:3}.heroStatus,.heroHint{z-index:5}.heroDate,.heroQuote{z-index:4}
 @media(max-width:900px){.hero{height:560px}.heroStatus{left:24px;right:24px}}
 @media(max-width:650px){
- .hero{height:500px;margin:0 -10px;border-radius:0 0 22px 22px;background-size:100% auto;background-position:center top;background-repeat:no-repeat}
- .heroOverlay{background:linear-gradient(180deg,transparent 0%,transparent 25%,#10202d18 33%,#10202dcc 43%,#10202df4 54%,#10202d 68%,#10202d 100%)}
- .heroTop{padding:0 18px}
- .heroDate{left:18px;top:60px}.heroDate small{font-size:11px}.heroDate b{font-size:30px}
+ .hero{height:500px;margin:0 -10px;border-radius:0 0 22px 22px;background-position:center 14px;background-size:calc(100% - 36px) auto;background-repeat:no-repeat;background-color:#10202d}
+ .heroOverlay{background:radial-gradient(ellipse at 50% 24%,#24577d70 0%,#10202d10 34%,#10202dcc 52%,#10202df5 64%,#10202d 78%,#10202d 100%),linear-gradient(180deg,transparent 0%,transparent 30%,#10202d18 38%,#10202ddc 48%,#10202df7 58%,#10202d 72%,#10202d 100%)}
+ .heroTop{padding:0 18px}.heroDate{left:18px;top:60px}.heroDate small{font-size:11px}.heroDate b{font-size:30px}
  .heroQuote{left:18px;top:116px}.heroQuote strong{font-size:27px}.heroQuote span{font-size:10px}
  .heroStatus{left:18px;right:18px;bottom:78px;top:auto;width:auto;padding:15px 16px;border-radius:17px}
- .heroStatus .row{gap:14px}.heroTemp{font-size:48px}.heroCond{font-size:13px;margin-top:1px}
- .heroFacts{font-size:10px;gap:5px;padding-left:13px}
+ .heroStatus .row{gap:14px}.heroTemp{font-size:48px}.heroCond{font-size:13px;margin-top:1px}.heroFacts{font-size:10px;gap:5px;padding-left:13px}
  .heroHint{left:18px;right:18px;bottom:14px;max-width:none;padding:9px 13px;font-size:11px}
 }
