@@ -1,0 +1,27 @@
+/* QUALITY PASS — technical polish without changing the established visual language */
+html,body{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+img,.placeArt,.hero{backface-visibility:hidden}
+button,a,input{touch-action:manipulation}
+button{font:inherit}
+.placeCard,.panel,.warn,.hero{isolation:isolate}
+.placeCard{contain:layout paint}
+.placeArt{will-change:transform;background-color:#183247}
+.hero{will-change:background-image}
+.radarPanel{contain:paint}
+.radarPanel #map{overflow:hidden}
+.boot{padding:env(safe-area-inset-top) 20px env(safe-area-inset-bottom)}
+@media(max-width:650px){
+ body{padding-bottom:env(safe-area-inset-bottom)}
+ .dash{width:100%;max-width:100vw}
+ .hero,.panel,.placeCard,.warn{max-width:100%}
+ .hero{min-height:500px}
+ .heroStatus{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+ .heroHint{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+ .hour,.sunline div{min-height:0}
+ .radarFoot input{height:32px;accent-color:#5aa8dc}
+ .radarFoot button{min-width:44px;min-height:44px}
+}
+@media(hover:none){.placeCard:hover{transform:none;box-shadow:0 3px 12px #17262a12}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
