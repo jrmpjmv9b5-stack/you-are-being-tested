@@ -1,0 +1,1 @@
+window.REGION_SPRITE='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...";
