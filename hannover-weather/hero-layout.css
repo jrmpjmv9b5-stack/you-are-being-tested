@@ -1,0 +1,18 @@
+.hero{background-position:center top;background-size:cover}
+.heroOverlay{background:linear-gradient(180deg,#0d263b35 0%,#10202d00 28%,#10202d18 38%,#10202de8 55%,#10202df7 72%,#10202d 100%),linear-gradient(90deg,#10202d55,transparent 62%)}
+.heroStatus{width:380px;padding:22px;background:#10202ddd}
+.heroStatus .row{min-height:78px}
+.heroFacts{font-size:12px;gap:8px}
+@media(max-width:650px){
+.hero{height:500px;background-position:center top}
+.heroOverlay{background:linear-gradient(180deg,#0d263b25 0%,#10202d00 24%,#10202d10 33%,#10202ded 50%,#10202dfa 67%,#10202d 100%)}
+.heroDate{top:68px}
+.heroQuote{top:128px}
+.heroStatus{top:195px;left:14px;right:14px;padding:15px 16px;width:auto;border-radius:18px}
+.heroStatus small{font-size:12px}
+.heroStatus .row{min-height:92px}
+.heroTemp{font-size:48px}
+.heroCond{font-size:14px}
+.heroFacts{font-size:10px;gap:7px;padding-left:14px}
+.heroHint{bottom:15px;left:14px;right:14px}
+}
