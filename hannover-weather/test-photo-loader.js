@@ -1,0 +1,1 @@
+console.log('photo loader ready');
