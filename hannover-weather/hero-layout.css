@@ -1,19 +1,19 @@
-.hero{height:620px;background-position:center top;background-size:100% auto;background-repeat:no-repeat;background-color:#10202d}
-.heroOverlay{background:linear-gradient(180deg,#0d263b10 0%,#10202d00 26%,#10202dcc 42%,#10202df5 52%,#10202d 64%,#10202d 100%),linear-gradient(90deg,#10202d35,transparent 65%)}
-.heroStatus{width:410px;padding:22px;background:#10202de8;border:1px solid #ffffff35}
+.hero{height:560px;background-repeat:no-repeat;background-position:center top;background-size:100% auto;background-color:#10202d}
+.heroOverlay{background:linear-gradient(180deg,#0d263b18 0%,#10202d00 24%,#10202d08 34%,#10202de0 47%,#10202df8 63%,#10202d 100%),linear-gradient(90deg,#10202d35,transparent 65%)}
+.heroStatus{width:390px;padding:22px;background:#10202de8;border:1px solid #ffffff35}
 .heroStatus .row{min-height:82px}
 .heroFacts{font-size:12px;gap:8px}
-@media(max-width:900px){.hero{height:620px}.heroStatus{width:360px}}
+@media(max-width:900px){.hero{height:560px}.heroStatus{width:360px}}
 @media(max-width:650px){
-.hero{height:620px;margin:0 -10px;border-radius:0 0 20px 20px;background-position:center top;background-size:100% auto;background-repeat:no-repeat;background-color:#10202d}
-.heroOverlay{background:linear-gradient(180deg,#0d263b08 0%,#10202d00 22%,#10202d88 31%,#10202de8 40%,#10202d 49%,#10202d 100%)}
-.heroDate{top:68px}
-.heroQuote{top:128px}
-.heroStatus{top:250px;left:14px;right:14px;padding:17px 17px;width:auto;border-radius:18px;background:#10202df5;box-shadow:0 18px 40px #0006}
+.hero{height:500px;margin:0 -10px;border-radius:0 0 20px 20px;background-position:center top;background-size:100% auto;background-repeat:no-repeat;background-color:#10202d}
+.heroOverlay{background:linear-gradient(180deg,#0d263b10 0%,#10202d00 22%,#10202d18 34%,#10202dcc 46%,#10202df4 58%,#10202d 100%)}
+.heroDate{top:60px}
+.heroQuote{top:116px}
+.heroStatus{top:220px;left:14px;right:14px;padding:17px 17px;width:auto;border-radius:18px;background:#10202df5;box-shadow:0 18px 40px #0006}
 .heroStatus small{font-size:12px}
 .heroStatus .row{min-height:98px}
 .heroTemp{font-size:52px}
 .heroCond{font-size:14px}
 .heroFacts{font-size:10px;gap:7px;padding-left:14px}
-.heroHint{bottom:16px;left:14px;right:14px;max-width:none}
+.heroHint{bottom:14px;left:14px;right:14px;max-width:none}
 }
