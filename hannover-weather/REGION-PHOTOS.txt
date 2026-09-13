@@ -1,0 +1,1 @@
+Regional photo layer added via region-images.js. Photos are sourced from Wikimedia Commons and linked dynamically by place name.
