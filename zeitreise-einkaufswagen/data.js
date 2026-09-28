@@ -93,6 +93,24 @@ const priceDB = {
       ["2026-09-28","Kaufland",2.99],["2026-09-28","Penny",1.49],["2026-09-28","Lidl",0.85]
     ]}
   ],
+{id:10,name:"Ja! Sonnenblumenöl",brand:"ja!",size:"1 l",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/4189-ja-sonnenblumenoel-1l",obs:[
+      ["2009-09-17","REWE",0.99],["2011-10-10","REWE",0.99],["2014-10-10","REWE",1.19],["2015-03-14","REWE",1.19],["2016-03-11","REWE",1.29],
+      ["2018-09-18","REWE",0.99],["2023-10-23","REWE",1.79],["2025-01-25","REWE",1.59],["2025-04-15","REWE",1.49],["2026-05-16","REWE",1.79],["2026-09-03","REWE",1.89]
+    ]},
+    {id:11,name:"ja! Natives Olivenöl extra",brand:"ja!",size:"750 ml",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/58158-ja-natives-olivenoel-extra-750ml",obs:[
+      ["2009-09-17","REWE",2.79],["2011-10-10","REWE",2.59],["2014-09-20","REWE",2.99],["2015-03-14","REWE",3.19],["2016-03-11","REWE",3.49],
+      ["2019-07-15","REWE",3.59],["2020-11-11","REWE",3.48],["2022-01-15","REWE",3.89],["2022-10-31","REWE",4.49],["2023-03-01","REWE",4.99],["2024-07-24","REWE",9.49],["2026-09-03","Hit",5.99]
+    ]},
+    {id:12,name:"ja! Kernige Haferflocken",brand:"ja!",size:"500 g",cat:"Frühstück & Cerealien",sourceUrl:"https://www.supermarktcheck.de/product/463929-ja-kernige-haferflocken-500g",obs:[
+      ["2020-01-21","REWE",0.49],["2020-11-11","REWE",0.47],["2021-02-10","REWE",0.49],["2022-03-19","REWE",0.59],["2023-03-01","REWE",0.79],["2026-02-02","REWE",0.69]
+    ]},
+    {id:13,name:"ja! Thunfischfilets in Sonnenblumenöl",brand:"ja!",size:"195 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/207236-ja-thunfischfilets-in-sonnenblumenoel-195g",obs:[
+      ["2019-04-05","REWE",1.19],["2020-11-11","REWE",1.15],["2021-02-04","REWE",1.19],["2023-03-01","REWE",1.49],["2026-09-07","Hit",1.29]
+    ]},
+    {id:14,name:"Ja! Sonnenblumen Margarine",brand:"ja!",size:"500 g",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/38725-ja-sonnenblumen-margarine-500g",obs:[
+      ["2025-04-15","REWE",1.49],["2026-08-09","REWE",1.59]
+    ]},
+
   // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
