@@ -13,7 +13,7 @@ input,select,button{font:inherit}input,select{width:100%;padding:13px 14px;borde
 .layout{display:grid;grid-template-columns:1fr 390px;gap:18px}.panel{background:white;border:1px solid #dddeda;border-radius:14px;padding:16px}
 .categories{display:flex;gap:8px;overflow:auto;margin-bottom:14px}.cat{border:1px solid #ccd1cc;background:white;border-radius:999px;padding:8px 12px;white-space:nowrap;cursor:pointer}.cat.active{background:#173b2a;color:white;border-color:#173b2a}
 .products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border:1px solid #e0e2de;border-radius:12px;padding:13px;display:flex;justify-content:space-between;gap:10px}.product h3{font-size:15px;margin:0 0 4px}.muted{color:#70766f;font-size:12px}.add{border:0;background:#173b2a;color:white;border-radius:9px;padding:8px 12px;cursor:pointer;align-self:center}
-.cart{position:sticky;top:12px}.cart h2{margin-top:0}.row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #eceeea}.qty{display:flex;align-items:center;gap:5px}.qty button{width:30px;height:30px;border:1px solid #ccd1cc;background:white;border-radius:7px}.price{text-align:right}.summary{margin-top:14px}.sumline{display:flex;justify-content:space-between;margin:8px 0}.big{font-size:27px;font-weight:700}.delta{background:#f0f4ef;border-radius:10px;padding:12px;margin-top:12px}.source{font-size:10px;color:#7b817a;margin-top:12px;line-height:1.4}.empty{padding:28px;text-align:center;color:#7a8079}
+.cart{position:sticky;top:12px}.cart h2{margin-top:0}.row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #eceeea}.qty{display:flex;align-items:center;gap:5px}.qty button{width:30px;height:30px;border:1px solid #ccd1cc;background:white;border-radius:7px}.price{text-align:right}.summary{margin-top:14px}.sumline{display:flex;justify-content:space-between;margin:8px 0}.big{font-size:27px;font-weight:700}.delta{background:#f0f4ef;border-radius:10px;padding:12px;margin-top:12px}.info{font-size:12px;color:#667066;margin:0 0 12px}.stats{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.stat{background:#eef2ee;border-radius:9px;padding:8px 10px;font-size:12px}.badge{display:inline-block;padding:3px 7px;border-radius:999px;background:#edf1ed;font-size:10px;margin-top:5px}.warn{background:#fff5df}.source{font-size:10px;color:#7b817a;margin-top:12px;line-height:1.4}.empty{padding:28px;text-align:center;color:#7a8079}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.cart{position:static}.products{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}}
 </style>
 </head>
@@ -23,8 +23,8 @@ input,select,button{font:inherit}input,select{width:100%;padding:13px 14px;borde
 <section class="controls">
 <input id="search" placeholder="Produkt suchen, z. B. Milch, Butter, Nutella …">
 <select id="year"></select>
-<select id="store"><option>Alle Händler</option><option>REWE</option><option>EDEKA</option><option>Aldi</option><option>Lidl</option><option>Kaufland</option><option>Penny</option><option>Netto</option></select>
-</section>
+<select id="store"><option value="ALL">Ø alle Händler</option><option>REWE</option><option>EDEKA</option><option>Aldi</option><option>Lidl</option><option>Kaufland</option><option>Penny</option><option>Netto</option></select>
+</section><p class="info">Echte, öffentlich gemeldete Preisbeobachtungen. „Ø alle Händler“ bildet das Mittel der vorhandenen Meldungen des Jahres. Fehlende Jahre werden nicht erfunden.</p><div class="stats" id="stats"></div>
 <div class="layout">
 <section class="panel"><div class="categories" id="cats"></div><div class="products" id="products"></div></section>
 <aside class="panel cart"><h2>Dein Warenkorb</h2><div id="cart"></div></aside>
