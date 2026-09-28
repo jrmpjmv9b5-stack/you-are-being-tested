@@ -91,9 +91,8 @@ const priceDB = {
     ]},
     {id:9,name:"Speisekartoffeln vorwiegend festkochend",brand:"Deutschland",size:"2,5 kg",cat:"Obst & Gemüse",sourceUrl:"https://www.supermarktcheck.de/product/72552-speisekartoffeln-deutschland",obs:[
       ["2026-09-28","Kaufland",2.99],["2026-09-28","Penny",1.49],["2026-09-28","Lidl",0.85]
-    ]}
-  ],
-{id:10,name:"Ja! Sonnenblumenöl",brand:"ja!",size:"1 l",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/4189-ja-sonnenblumenoel-1l",obs:[
+    ]},
+    {id:10,name:"Ja! Sonnenblumenöl",brand:"ja!",size:"1 l",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/4189-ja-sonnenblumenoel-1l",obs:[
       ["2009-09-17","REWE",0.99],["2011-10-10","REWE",0.99],["2014-10-10","REWE",1.19],["2015-03-14","REWE",1.19],["2016-03-11","REWE",1.29],
       ["2018-09-18","REWE",0.99],["2023-10-23","REWE",1.79],["2025-01-25","REWE",1.59],["2025-04-15","REWE",1.49],["2026-05-16","REWE",1.79],["2026-09-03","REWE",1.89]
     ]},
@@ -109,8 +108,8 @@ const priceDB = {
     ]},
     {id:14,name:"Ja! Sonnenblumen Margarine",brand:"ja!",size:"500 g",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/38725-ja-sonnenblumen-margarine-500g",obs:[
       ["2025-04-15","REWE",1.49],["2026-08-09","REWE",1.59]
-    ]},
-
+    ]}
+  ],
   // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
