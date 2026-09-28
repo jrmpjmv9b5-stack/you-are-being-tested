@@ -5,12 +5,28 @@
 
 const priceDB = {
   meta: {
+    schemaVersion: "2.0",
     source: "SupermarktCheck",
     sourceUrl: "https://www.supermarktcheck.de/",
     updated: "2026-09-28",
     methodology: "Jahresmittel aus öffentlich gemeldeten Preisbeobachtungen; Händler werden zusätzlich gruppiert.",
     officialIndexSource: "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html"
   },
+  retailers: [
+    {id:"rewe",name:"REWE"},
+    {id:"edeka",name:"EDEKA"},
+    {id:"aldi",name:"Aldi"},
+    {id:"lidl",name:"Lidl"},
+    {id:"kaufland",name:"Kaufland"},
+    {id:"penny",name:"Penny"},
+    {id:"netto",name:"Netto"},
+    {id:"other",name:"Sonstiger Händler"}
+  ],
+  sources: [
+    {id:"supermarktcheck",type:"public_web",name:"SupermarktCheck",url:"https://www.supermarktcheck.de/"},
+    {id:"user_receipt",type:"user_receipt",name:"Nutzer-Kassenbon"},
+    {id:"user_manual",type:"user_manual",name:"Nutzereingabe"}
+  ],
   products: [
     {id:1,name:"Frische Vollmilch ESL",brand:"Gut & Günstig",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/5212-gut-guenstig-frische-vollmilch-esl-1l",obs:[
       ["2008-03-29","EDEKA",0.73],["2008-11-03","EDEKA",0.68],["2009-05-05","diska (EDEKA Partner)",0.48],
@@ -76,5 +92,48 @@ const priceDB = {
     {id:9,name:"Speisekartoffeln vorwiegend festkochend",brand:"Deutschland",size:"2,5 kg",cat:"Obst & Gemüse",sourceUrl:"https://www.supermarktcheck.de/product/72552-speisekartoffeln-deutschland",obs:[
       ["2026-09-28","Kaufland",2.99],["2026-09-28","Penny",1.49],["2026-09-28","Lidl",0.85]
     ]}
-  ]
+  ],
+  // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
+  // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
+  priceObservations: [],
+  submissions: [],
+  validationRules: {
+    nearMatchPercent: 5,
+    minIndependentMatches: 3,
+    autoApprove: true,
+    keepOutliers: true
+  }
 };
+
+function normalizeRetailerName(name){
+  const s=(name||"").toLowerCase();
+  if(s.includes("rewe")||s.includes("nahkauf")) return "rewe";
+  if(s.includes("edeka")||s.includes("marktkauf")||s.includes("diska")||s.includes("np discount")||s.includes("e aktiv")) return "edeka";
+  if(s.includes("aldi")) return "aldi";
+  if(s.includes("lidl")) return "lidl";
+  if(s.includes("kaufland")) return "kaufland";
+  if(s.includes("penny")) return "penny";
+  if(s.includes("netto")) return "netto";
+  return "other";
+}
+
+priceDB.priceObservations = priceDB.products.flatMap(p =>
+  p.obs.map((o,i) => ({
+    id: `obs-${p.id}-${i+1}`,
+    productId: p.id,
+    retailerId: normalizeRetailerName(o[1]),
+    retailerRaw: o[1],
+    date: o[0],
+    year: Number(o[0].slice(0,4)),
+    price: Number(o[2]),
+    currency: "EUR",
+    unit: p.size,
+    sourceId: "supermarktcheck",
+    status: "verified-source",
+    confidence: 1
+  }))
+);
+
+// Platzhalter für spätere Nutzerbeiträge. Nutzer ändern niemals Rohdaten direkt.
+// Ein Beitrag wird erst nach Validierung in priceObservations übernommen.
+priceDB.submissions = [];
