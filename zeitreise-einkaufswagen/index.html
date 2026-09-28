@@ -30,32 +30,20 @@ input,select,button{font:inherit}input,select{width:100%;padding:13px 14px;borde
 <aside class="panel cart"><h2>Dein Warenkorb</h2><div id="cart"></div></aside>
 </div>
 </main>
-<script>
-const products=[
-{id:1,name:"JA! H-Milch",brand:"REWE",size:"1 l",cat:"Milch & Kühlung",prices:{2008:0.55,2010:0.59,2013:0.69,2015:0.69,2020:0.79,2023:0.99,2026:1.19}},
-{id:2,name:"Kerrygold Butter",brand:"Kerrygold",size:"250 g",cat:"Milch & Kühlung",prices:{2008:1.19,2010:1.29,2013:1.59,2015:1.69,2020:1.89,2023:2.49,2026:3.29}},
-{id:3,name:"Eier",brand:"Freiland",size:"10 Stück",cat:"Milch & Kühlung",prices:{2008:1.29,2010:1.39,2013:1.49,2015:1.59,2020:1.69,2023:2.49,2026:2.79}},
-{id:4,name:"Weizenmehl",brand:"ja!",size:"1 kg",cat:"Grundnahrung",prices:{2008:0.39,2010:0.45,2013:0.49,2015:0.49,2020:0.49,2023:0.79,2026:0.89}},
-{id:5,name:"Spaghetti",brand:"Barilla",size:"500 g",cat:"Grundnahrung",prices:{2008:0.99,2010:1.09,2013:1.19,2015:1.29,2020:1.39,2023:1.79,2026:1.99}},
-{id:6,name:"Nutella",brand:"Ferrero",size:"450 g",cat:"Süßes",prices:{2008:1.99,2010:2.19,2013:2.49,2015:2.59,2020:2.99,2023:3.99,2026:4.49}},
-{id:7,name:"Toastbrot",brand:"Golden Toast",size:"500 g",cat:"Brot",prices:{2008:0.99,2010:1.09,2013:1.19,2015:1.29,2020:1.49,2023:1.79,2026:1.99}},
-{id:8,name:"Rinderhackfleisch",brand:"Frisch",size:"500 g",cat:"Fleisch",prices:{2008:2.99,2010:3.29,2013:3.49,2015:3.99,2020:4.49,2023:5.49,2026:6.49}},
-{id:9,name:"Bananen",brand:"Lose",size:"1 kg",cat:"Obst & Gemüse",prices:{2008:1.19,2010:1.19,2013:1.29,2015:1.29,2020:1.39,2023:1.69,2026:1.79}},
-{id:10,name:"Kaffee",brand:"Jacobs Krönung",size:"500 g",cat:"Getränke",prices:{2008:4.49,2010:4.99,2013:5.49,2015:5.79,2020:6.49,2023:7.49,2026:8.49}},
-{id:11,name:"Coca-Cola",brand:"Coca-Cola",size:"1,5 l",cat:"Getränke",prices:{2008:1.29,2010:1.39,2013:1.49,2015:1.59,2020:1.69,2023:1.99,2026:2.29}},
-{id:12,name:"Kartoffeln",brand:"Speisekartoffeln",size:"2,5 kg",cat:"Obst & Gemüse",prices:{2008:1.99,2010:2.09,2013:2.29,2015:2.39,2020:2.49,2023:3.29,2026:3.49}}
-];
-let cart={}, category="Alle";
-const fmt=n=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
-const cats=["Alle",...new Set(products.map(p=>p.cat))];
+<script src="data.js"></script><script>
+const products=priceDB.products,years=Array.from({length:19},(_,i)=>2008+i);
+const search=document.getElementById("search"),year=document.getElementById("year"),store=document.getElementById("store"),catsEl=document.getElementById("cats"),productsEl=document.getElementById("products"),cartEl=document.getElementById("cart"),statsEl=document.getElementById("stats");
+year.innerHTML=years.map(y=>`<option value="${y}" ${y===2026?"selected":""}>${y}</option>`).join("");
+let cart={},category="Alle";const fmt=n=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});const cats=["Alle",...new Set(products.map(p=>p.cat))];
+function group(s){s=(s||"").toLowerCase();if(s.includes("rewe")||s.includes("nahkauf"))return"REWE";if(s.includes("edeka")||s.includes("marktkauf")||s.includes("diska")||s.includes("np discount")||s.includes("e aktiv"))return"EDEKA";if(s.includes("aldi"))return"Aldi";if(s.includes("lidl"))return"Lidl";if(s.includes("kaufland"))return"Kaufland";if(s.includes("penny"))return"Penny";if(s.includes("netto"))return"Netto";return s}
+function observations(p,y,s){let a=p.obs.filter(o=>o[0].startsWith(String(y)));if(s!=="ALL")a=a.filter(o=>group(o[1])===s);return a}
+function priceInfo(p,y,s){let a=observations(p,y,s),exact=s==="ALL"||a.length>0;if(!a.length&&s!=="ALL"){a=observations(p,y,"ALL");exact=false}if(!a.length)return null;return{price:a.reduce((x,o)=>x+o[2],0)/a.length,count:a.length,exact}}
 function renderCats(){catsEl.innerHTML=cats.map(c=>`<button class="cat ${c===category?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("")}
-function renderProducts(){const q=search.value.toLowerCase(),s=store.value;let list=products.filter(p=>(category==="Alle"||p.cat===category)&&(!q||[p.name,p.brand,p.size,p.cat].join(" ").toLowerCase().includes(q))&&(s==="Alle Händler"||p.brand===s||p.brand==="REWE"&&s==="REWE"));productsEl.innerHTML=list.length?list.map(p=>`<article class="product"><div><h3>${p.name}</h3><div class="muted">${p.brand} · ${p.size}</div><div class="muted">${fmt(p.prices[year.value]||p.prices[2013])} · Demo-Daten</div></div><button class="add" onclick="add(${p.id})">+ Hinzufügen</button></article>`).join(""):'<div class="empty">Keine Produkte gefunden.</div>'}
-function add(id){cart[id]=(cart[id]||0)+1;renderCart()}
-function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
-function renderCart(){const y=+year.value;let old=0,now=0;let rows=Object.entries(cart).map(([id,q])=>{let p=products.find(x=>x.id==id),a=p.prices[y]||p.prices[2013],b=p.prices[2026];old+=a*q;now+=b*q;return `<div class="row"><div><strong>${p.name}</strong><div class="muted">${p.size}</div></div><div class="qty"><button onclick="change(${id},-1)">−</button><span>${q}</span><button onclick="change(${id},1)">+</button></div><div class="price">${fmt(a*q)}<br><span class="muted">heute ${fmt(b*q)}</span></div></div>`}).join("");cartEl.innerHTML=rows||'<div class="empty">Noch leer. Suche ein Produkt und füge es hinzu.</div>';if(rows)cartEl.innerHTML+=`<div class="summary"><div class="sumline"><span>${y}</span><strong>${fmt(old)}</strong></div><div class="sumline"><span>2026</span><strong class="big">${fmt(now)}</strong></div><div class="delta"><strong>+${fmt(now-old)}</strong> · ${old?((now/old-1)*100).toFixed(1):0} % gegenüber ${y}</div><div class="source">Hinweis: Die aktuellen Produktpreise und historischen Werte sind in diesem Prototyp Demo-/Beispieldaten. Sie werden später durch belegte historische Quellen ersetzt.</div></div>`}
+function renderStats(){const y=+year.value,s=store.value,obs=products.flatMap(p=>observations(p,y,s));statsEl.innerHTML=`<div class="stat"><b>${y}</b>: ${obs.length} Preisbeobachtungen</div><div class="stat"><b>${products.filter(p=>priceInfo(p,y,s)).length}</b> Produkte mit Daten</div><div class="stat">Quelle: SupermarktCheck</div>`}
+function renderProducts(){const q=search.value.toLowerCase(),y=+year.value,s=store.value,list=products.filter(p=>(category==="Alle"||p.cat===category)&&(!q||[p.name,p.brand,p.size,p.cat].join(" ").toLowerCase().includes(q)));productsEl.innerHTML=list.length?list.map(p=>{const i=priceInfo(p,y,s);return `<article class="product"><div><h3>${p.name}</h3><div class="muted">${p.brand} · ${p.size}</div>${i?`<div><strong>${fmt(i.price)}</strong> <span class="muted">${i.exact&&s!=="ALL"?s:"Ø gemeldete Preise"} · ${i.count} Meldung${i.count===1?"":"en"}</span></div>${!i.exact&&s!=="ALL"?'<span class="badge warn">kein Händlerpreis – Ø verwendet</span>':''}`:'<span class="badge warn">keine Daten für dieses Jahr</span>'}</div><button class="add" ${i?'':'disabled'} onclick="add(${p.id})">+ Hinzufügen</button></article>`}).join(""):'<div class="empty">Keine Produkte gefunden.</div>';renderStats()}
+function add(id){cart[id]=(cart[id]||0)+1;renderCart()}function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function renderCart(){const y=+year.value,s=store.value;let old=0,now=0,rows="";Object.entries(cart).forEach(([id,q])=>{const p=products.find(x=>x.id==id),a=priceInfo(p,y,s),b=priceInfo(p,2026,s);if(!a||!b)return;old+=a.price*q;now+=b.price*q;rows+=`<div class="row"><div><strong>${p.name}</strong><div class="muted">${p.size}</div></div><div class="qty"><button onclick="change(${id},-1)">−</button><span>${q}</span><button onclick="change(${id},1)">+</button></div><div class="price">${fmt(a.price*q)}<br><span class="muted">2026 ${fmt(b.price*q)}</span></div></div>`});cartEl.innerHTML=rows||'<div class="empty">Noch leer. Füge Produkte hinzu, für die im gewählten Jahr Daten vorhanden sind.</div>';if(rows)cartEl.innerHTML+=`<div class="summary"><div class="sumline"><span>${y}</span><strong>${fmt(old)}</strong></div><div class="sumline"><span>2026</span><strong class="big">${fmt(now)}</strong></div><div class="delta"><strong>${fmt(now-old)}</strong> · ${old?((now/old-1)*100).toFixed(1):0} % gegenüber ${y}</div><div class="source">Datenbasis: beobachtete Europreise. Bei Händlerauswahl wird bei fehlender Händlerbeobachtung transparent auf den Jahres-Ø zurückgegriffen.</div></div>`}
 }
-function setCat(c){category=c;renderCats();renderProducts()}
-const search=document.getElementById("search"),year=document.getElementById("year"),store=document.getElementById("store"),catsEl=document.getElementById("cats"),productsEl=document.getElementById("products"),cartEl=document.getElementById("cart");
-search.oninput=renderProducts;year.onchange=()=>{renderProducts();renderCart()};store.onchange=renderProducts;renderCats();renderProducts();renderCart();
+function setCat(c){category=c;renderCats();renderProducts()}search.oninput=renderProducts;year.onchange=()=>{renderProducts();renderCart()};store.onchange=()=>{renderProducts();renderCart()};renderCats();renderProducts();renderCart();
 </script>
 </body></html>
