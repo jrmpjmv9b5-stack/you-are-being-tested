@@ -167,11 +167,53 @@ function obs(p,y,s){let a=(p.obs||[]).filter(o=>o[0].startsWith(String(y)));retu
 function info(p,y,s){let a=obs(p,y,s),exact=true;if(!a.length&&s!=="ALL"){a=obs(p,y,"ALL");exact=false}if(!a.length)return null;return {price:a.reduce((n,o)=>n+Number(o[2]),0)/a.length,count:a.length,exact}}
 function money(n){return Number(n).toLocaleString("de-DE",{style:"currency",currency:"EUR"})}
 function fillSelects(){catSelect.innerHTML='<option>Alle Kategorien</option>'+[...new Set(products.map(p=>p.cat))].map(c=>'<option>'+c+'</option>').join("");["A","B"].forEach((x,i)=>{const y=$("year"+x),s=$("store"+x);y.innerHTML=years.map(v=>'<option value="'+v+'" '+(v===(i?2026:2008)?"selected":"")+'>'+v+'</option>').join("");s.innerHTML=stores.map(v=>'<option value="'+v+'">'+(v==="ALL"?"Ø alle Händler":v)+'</option>').join("");});globalStore.value="ALL"}
-function renderResults(){const q=search.value.trim().toLowerCase(),cat=catSelect.value;let list=products.filter(p=>(!q||[p.name,p.brand,p.size,p.cat].join(" ").toLowerCase().includes(q))&&(cat==="Alle Kategorien"||p.cat===cat));if(!q&&cat==="Alle Kategorien"){results.innerHTML='<div class="empty">Suche z. B. <b>Milch</b> und du bekommst alle passenden Produkte und Varianten.</div>';stats.textContent=products.length+" Produkte in der aktuellen Datenbasis.";return}const store=globalStore.value;results.innerHTML=list.length?list.map(p=>{const i=info(p,Number($("yearA").value),store);return '<div class="result"><div><b>'+p.name+'</b><div class="muted">'+(p.brand||"")+" · "+(p.size||"")+" · "+p.cat+'</div>'+(i?'<div>'+money(i.price)+' · '+i.count+' Beobachtung'+(i.count===1?"":"en")+'</div>':'<div class="muted">Für das gewählte Jahr keine Beobachtung</div>')+'</div><button class="add" onclick="addTo('A','+p.id+')">+ zu A</button><button class="add" onclick="addTo('B','+p.id+')">+ zu B</button></div>').join(""):'<div class="empty">Keine passenden Produkte gefunden.</div>';stats.textContent=list.length+" passende Produkte / Varianten."}
+function renderResults(){
+  const q=search.value.trim().toLowerCase(),cat=catSelect.value;
+  const list=products.filter(p=>
+    (!q||[p.name,p.brand,p.size,p.cat].join(" ").toLowerCase().includes(q)) &&
+    (cat==="Alle Kategorien"||p.cat===cat)
+  );
+  if(!q&&cat==="Alle Kategorien"){
+    results.innerHTML='<div class="empty">Suche z. B. <b>Milch</b> und du bekommst alle passenden Produkte und Varianten.</div>';
+    stats.textContent=products.length+" Produkte in der aktuellen Datenbasis.";
+    return;
+  }
+  const store=globalStore.value;
+  results.innerHTML=list.length ? list.map(p=>{
+    const i=info(p,Number($("yearA").value),store);
+    return `<div class="result">
+      <div><b>${p.name}</b><div class="muted">${p.brand||""} · ${p.size||""} · ${p.cat}</div>
+      ${i ? `<div>${money(i.price)} · ${i.count} Beobachtung${i.count===1?"":"en"}</div>` : '<div class="muted">Für das gewählte Jahr keine Beobachtung</div>'}
+      </div>
+      <button class="add" onclick="addTo('A',${p.id})">+ zu A</button>
+      <button class="add" onclick="addTo('B',${p.id})">+ zu B</button>
+    </div>`;
+  }).join("") : '<div class="empty">Keine passenden Produkte gefunden.</div>';
+  stats.textContent=list.length+" passende Produkte / Varianten.";
+}
 function addTo(which,id){carts[which][id]=(carts[which][id]||0)+1;renderCarts()}
 function change(which,id,d){carts[which][id]=(carts[which][id]||0)+d;if(carts[which][id]<=0)delete carts[which][id];renderCarts()}
 window.addTo=addTo;window.change=change;
-function renderCart(which){const y=Number($("year"+which).value),s=$("store"+which).value;let total=0,html="";Object.entries(carts[which]).forEach(([id,q])=>{const p=products.find(x=>x.id==id),i=info(p,y,s);if(!i)return;total+=i.price*q;html+='<div class="cartrow"><div><b>'+p.name+'</b><div class="muted">'+p.brand+' · '+p.size+'</div><div>'+money(i.price)+' je Einheit</div></div><div class="qty"><button onclick="change(''+which+'','+id+',-1)">−</button><b>'+q+'</b><button onclick="change(''+which+'','+id+',1)">+</button></div><b>'+money(i.price*q)+'</b></div>'});$("cart"+which).innerHTML=html||'<div class="empty">Noch leer.</div>';if(total)$("cart"+which).innerHTML+= '<div class="total">'+money(total)+'</div>'}
+function renderCart(which){
+  const y=Number($("year"+which).value),s=$("store"+which).value;
+  let total=0,html="";
+  Object.entries(carts[which]).forEach(([id,q])=>{
+    const p=products.find(x=>x.id==id),i=info(p,y,s);
+    if(!i)return;
+    total+=i.price*q;
+    html+=`<div class="cartrow">
+      <div><b>${p.name}</b><div class="muted">${p.brand} · ${p.size}</div><div>${money(i.price)} je Einheit</div></div>
+      <div class="qty">
+        <button onclick="change('${which}',${id},-1)">−</button>
+        <b>${q}</b>
+        <button onclick="change('${which}',${id},1)">+</button>
+      </div>
+      <b>${money(i.price*q)}</b>
+    </div>`;
+  });
+  $("cart"+which).innerHTML=html||'<div class="empty">Noch leer.</div>';
+  if(total)$("cart"+which).innerHTML+=`<div class="total">${money(total)}</div>`;
+}
 function renderCarts(){renderCart("A");renderCart("B");const totals=["A","B"].map(x=>{let t=0,y=Number($("year"+x).value),s=$("store"+x).value;Object.entries(carts[x]).forEach(([id,q])=>{const i=info(products.find(p=>p.id==id),y,s);if(i)t+=i.price*q});return t});const d=totals[1]-totals[0];$("comparison").innerHTML='<b>Vergleich der Warenkörbe</b><div style="display:flex;justify-content:space-between;margin-top:8px"><span>A: '+money(totals[0])+'</span><span>B: '+money(totals[1])+'</span><strong>Differenz: '+money(d)+'</strong></div>'}
 search.oninput=renderResults;catSelect.onchange=renderResults;globalStore.onchange=renderResults;["A","B"].forEach(x=>{$("year"+x).onchange=()=>{renderResults();renderCarts()};$("store"+x).onchange=renderCarts});fillSelects();renderResults();renderCarts();
 })();
