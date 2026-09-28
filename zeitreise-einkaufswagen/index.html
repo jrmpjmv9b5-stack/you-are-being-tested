@@ -30,7 +30,9 @@ input,select,button{font:inherit}input,select{width:100%;padding:13px 14px;borde
 <aside class="panel cart"><h2>Dein Warenkorb</h2><div id="cart"></div></aside>
 </div>
 </main>
-<script src="data.js"></script><script>
+<div id="errorBox" style="display:none;margin:0 0 14px;padding:12px;border-radius:10px;background:#fff0f0;border:1px solid #e0b0b0;color:#7a2020"></div>
+<script src="./data.js?v=20260928"></script><script>
+if(typeof priceDB==="undefined"){document.getElementById("errorBox").style.display="block";document.getElementById("errorBox").textContent="Die Preisdatenbank konnte nicht geladen werden. Bitte Seite neu laden.";throw new Error("priceDB konnte nicht geladen werden");}
 const products=priceDB.products,years=Array.from({length:19},(_,i)=>2008+i);
 const search=document.getElementById("search"),year=document.getElementById("year"),store=document.getElementById("store"),catsEl=document.getElementById("cats"),productsEl=document.getElementById("products"),cartEl=document.getElementById("cart"),statsEl=document.getElementById("stats");
 year.innerHTML=years.map(y=>`<option value="${y}" ${y===2026?"selected":""}>${y}</option>`).join("");
