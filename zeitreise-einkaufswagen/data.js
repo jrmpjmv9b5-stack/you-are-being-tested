@@ -109,8 +109,6 @@ const priceDB = {
     {id:14,name:"Ja! Sonnenblumen Margarine",brand:"ja!",size:"500 g",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/38725-ja-sonnenblumen-margarine-500g",obs:[
       ["2025-04-15","REWE",1.49],["2026-08-09","REWE",1.59]
     ]}
-  ],
-
     {id:15,name:"ja! H-Milch 1,5%",brand:"ja!",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/1325-ja-h-milch-15-1l",obs:[
       ["2009-10-19","REWE",0.42],["2011-03-31","REWE",0.50],["2012-07-23","REWE",0.45],["2012-11-03","REWE",0.54],
       ["2014-09-20","REWE",0.65],["2014-11-11","REWE",0.55],["2017-05-26","REWE",0.63],["2018-04-11","REWE",0.68],
@@ -131,6 +129,7 @@ const priceDB = {
     {id:19,name:"ja! Tomaten passiert",brand:"ja!",size:"500 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37850-ja-tomaten-passiert-500g",obs:[
       ["2023-09-01","REWE",0.85],["2024-01-22","REWE",0.79],["2026-05-16","REWE",0.65]
     ]},
+  ]
   // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
