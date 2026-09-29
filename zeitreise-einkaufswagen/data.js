@@ -128,8 +128,7 @@ const priceDB = {
     ]},
     {id:19,name:"ja! Tomaten passiert",brand:"ja!",size:"500 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37850-ja-tomaten-passiert-500g",obs:[
       ["2023-09-01","REWE",0.85],["2024-01-22","REWE",0.79],["2026-05-16","REWE",0.65]
-    ]},],
-
+    ]},
     {id:20,name:"GUT&GÜNSTIG Fettarme H-Milch",brand:"Gut & Günstig",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/6476-gutgUEnstig-fettarme-h-milch-1-l",obs:[
       ["2008-04-08","EDEKA",0.66],["2008-06-02","WEZ Markt (EDEKA Partner)",0.54],["2008-11-03","Marktkauf",0.61],
       ["2009-05-05","diska (EDEKA Partner)",0.42],["2009-05-10","diska (EDEKA Partner)",0.49],["2010-05-25","EDEKA",0.50],
@@ -153,7 +152,8 @@ const priceDB = {
       ["2024-02-03","EDEKA Center",2.19],["2024-08-12","EDEKA",2.39],["2024-09-21","EDEKA",2.49],
       ["2024-10-24","REWE",2.19],["2024-10-30","EDEKA",1.79],["2026-02-06","REWE",1.99]
     ]},
-    // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
+  ],
+  // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
   submissions: [],
