@@ -3,11 +3,11 @@
 <title>Zeitreise-Einkaufswagen</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f2;color:#20231f;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:#173b2a;color:#fff;padding:22px 18px}header>div,main{max-width:1180px;margin:auto}h1{margin:0;font-size:28px}header p{margin:6px 0;color:#c9d9cf}.wrap{padding:18px}.controls,.basket-controls{display:grid;grid-template-columns:1.5fr .7fr .8fr;gap:10px;margin-bottom:12px}input,select,button{font:inherit}input,select{padding:12px;border:1px solid #ccd1cc;border-radius:10px;background:#fff;width:100%}button{cursor:pointer}.cats{display:flex;gap:8px;overflow:auto;margin:12px 0}.cat{padding:8px 12px;border:1px solid #ccd1cc;border-radius:20px;background:#fff}.cat.active{background:#173b2a;color:#fff}.results{background:#fff;border:1px solid #dddeda;border-radius:12px;margin-bottom:16px;overflow:hidden}.result{padding:12px 14px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:12px;align-items:center}.result:last-child{border-bottom:0}.muted{color:#70766f;font-size:12px}.add{border:0;background:#173b2a;color:#fff;border-radius:8px;padding:8px 12px}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:#fff;border:1px solid #dddeda;border-radius:14px;padding:16px}.panel h2{margin:0 0 12px}.cartrow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eee}.qty{display:flex;gap:5px;align-items:center}.qty button{width:30px;height:30px;border:1px solid #ccd1cc;border-radius:7px;background:#fff}.total{font-size:25px;font-weight:700;text-align:right;margin-top:14px}.compare{margin-top:16px;background:#eef3ee;border-radius:12px;padding:16px}.empty{padding:22px;text-align:center;color:#777}.stats{margin:10px 0;color:#687067;font-size:12px}@media(max-width:800px){.layout{grid-template-columns:1fr}.controls,.basket-controls{grid-template-columns:1fr}.result{align-items:flex-start}.result .add{white-space:nowrap}}
+header{background:#173b2a;color:#fff;padding:22px 18px}header>div,main{max-width:1180px;margin:auto}h1{margin:0;font-size:28px}header p{margin:6px 0;color:#c9d9cf}.wrap{padding:18px}.controls,.basket-controls{display:grid;grid-template-columns:1.6fr .9fr;gap:10px;margin-bottom:12px}input,select,button{font:inherit}input,select{padding:12px;border:1px solid #ccd1cc;border-radius:10px;background:#fff;width:100%}button{cursor:pointer}.cats{display:flex;gap:8px;overflow:auto;margin:12px 0}.cat{padding:8px 12px;border:1px solid #ccd1cc;border-radius:20px;background:#fff}.cat.active{background:#173b2a;color:#fff}.results{background:#fff;border:1px solid #dddeda;border-radius:12px;margin-bottom:16px;overflow:hidden}.result{padding:13px 14px;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.result:last-child{border-bottom:0}.muted{color:#70766f;font-size:12px}.statusline{display:flex;gap:14px;flex-wrap:wrap;margin-top:5px;font-size:13px}.ok{color:#176b3a}.no{color:#a33a2b}.addrow{display:flex;gap:6px}.add{border:0;background:#173b2a;color:#fff;border-radius:8px;padding:8px 12px;white-space:nowrap}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:#fff;border:1px solid #dddeda;border-radius:14px;padding:16px}.panel h2{margin:0 0 12px}.cartrow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eee}.cartrow.unavailable{background:#fff5f3;margin:0 -8px;padding:10px 8px;border-radius:8px}.qty{display:flex;gap:5px;align-items:center}.qty button{width:30px;height:30px;border:1px solid #ccd1cc;border-radius:7px;background:#fff}.total{font-size:25px;font-weight:700;text-align:right;margin-top:14px}.warning{margin-top:10px;padding:9px 11px;border-radius:8px;background:#fff5f3;color:#8c3328;font-size:13px}.compare{margin-top:16px;background:#eef3ee;border-radius:12px;padding:16px}.comparegrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px}.comparebox{background:#fff;border-radius:9px;padding:10px}.empty{padding:22px;text-align:center;color:#777}.stats{margin:10px 0;color:#687067;font-size:12px}.legend{margin:0 0 12px;padding:10px 12px;background:#fff;border:1px solid #dddeda;border-radius:10px;font-size:12px;color:#596159}.legend b{color:#176b3a}.legend .no{margin-left:12px}@media(max-width:800px){.layout{grid-template-columns:1fr}.controls,.basket-controls{grid-template-columns:1fr}.result{grid-template-columns:1fr}.addrow{justify-content:flex-start}.comparegrid{grid-template-columns:1fr}.cartrow{grid-template-columns:1fr auto}.cartrow>strong{grid-column:1/-1;text-align:right}}
 </style></head><body>
 <header><div><h1>🛒 Zeitreise-Einkaufswagen</h1><p>Produkte suchen, Warenkörbe zusammenstellen und Preise über die Jahre vergleichen.</p></div></header>
 <main class="wrap">
-<div class="controls"><input id="search" placeholder="z. B. Milch, Butter, Eier, Kaffee …"><select id="catSelect"></select><select id="globalStore"><option value="ALL">Ø alle Händler</option><option>REWE</option><option>EDEKA</option><option>Aldi</option><option>Lidl</option><option>Kaufland</option><option>Penny</option><option>Netto</option></select></div>
+<div class="controls"><input id="search" placeholder="z. B. Milch, Butter, Eier, Kaffee …"><select id="catSelect"></select></div><div class="legend"><b>✓ Preis vorhanden</b><span class="no">✕ kein Preis für genau dieses Jahr + diesen Händler</span></div>
 <div class="stats" id="stats"></div><div id="results" class="results"><div class="empty">Suchbegriff eingeben oder Kategorie auswählen.</div></div>
 <div class="layout">
 <section class="panel"><h2>🕰️ Warenkorb A</h2><div class="basket-controls"><select id="yearA"></select><select id="storeA"></select></div><div id="cartA"></div></section>
@@ -24,7 +24,7 @@ const priceDB = {
     schemaVersion: "2.0",
     source: "SupermarktCheck",
     sourceUrl: "https://www.supermarktcheck.de/",
-    updated: "2026-09-28",
+    updated: "2026-09-29",
     methodology: "Jahresmittel aus öffentlich gemeldeten Preisbeobachtungen; Händler werden zusätzlich gruppiert.",
     officialIndexSource: "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html"
   },
@@ -125,7 +125,27 @@ const priceDB = {
     {id:14,name:"Ja! Sonnenblumen Margarine",brand:"ja!",size:"500 g",cat:"Öle & Fette",sourceUrl:"https://www.supermarktcheck.de/product/38725-ja-sonnenblumen-margarine-500g",obs:[
       ["2025-04-15","REWE",1.49],["2026-08-09","REWE",1.59]
     ]}
-  ],
+    {id:15,name:"ja! H-Milch 1,5%",brand:"ja!",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/1325-ja-h-milch-15-1l",obs:[
+      ["2009-10-19","REWE",0.42],["2011-03-31","REWE",0.50],["2012-07-23","REWE",0.45],["2012-11-03","REWE",0.54],
+      ["2014-09-20","REWE",0.65],["2014-11-11","REWE",0.55],["2017-05-26","REWE",0.63],["2018-04-11","REWE",0.68],
+      ["2020-01-21","REWE",0.65],["2020-11-11","REWE",0.68],["2021-03-11","REWE",0.71],["2022-12-16","REWE",0.99],
+      ["2023-03-01","REWE",1.05],["2023-06-09","REWE",0.95],["2024-07-24","REWE",0.99],["2026-05-16","REWE",0.85]
+    ]},
+    {id:16,name:"ja! Raffinade Zucker",brand:"ja!",size:"1 kg",cat:"Grundnahrung",sourceUrl:"https://www.supermarktcheck.de/product/33375-ja-raffinade-zucker-1kg",obs:[
+      ["2009-10-22","REWE",0.85],["2010-05-25","Hit",0.69],["2011-10-09","REWE",0.65],["2014-09-20","REWE",0.85],
+      ["2014-11-11","REWE",0.65],["2017-05-26","REWE",0.69],["2019-07-15","REWE",0.59],["2021-02-04","REWE",0.79],
+      ["2022-11-07","REWE",1.29],["2024-07-24","REWE",1.49],["2026-02-05","REWE",0.99]
+    ]},
+    {id:17,name:"ja! Zarte Haferflocken",brand:"ja!",size:"500 g",cat:"Frühstück & Cerealien",sourceUrl:"https://www.supermarktcheck.de/product/37860-ja-zarte-haferflocken-500g",obs:[
+      ["2022-02-17","REWE",0.49],["2023-10-23","REWE",0.79],["2026-05-18","REWE",0.69]
+    ]},
+    {id:18,name:"ja! Tomaten fein gehackt",brand:"ja!",size:"400 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37851-ja-tomaten-fein-gehackt-in-tomatensaft-400g",obs:[
+      ["2022-07-18","REWE",0.55],["2022-11-20","REWE",0.69],["2023-03-01","REWE",0.85],["2026-05-16","REWE",0.59]
+    ]},
+    {id:19,name:"ja! Tomaten passiert",brand:"ja!",size:"500 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37850-ja-tomaten-passiert-500g",obs:[
+      ["2023-09-01","REWE",0.85],["2024-01-22","REWE",0.79],["2026-05-16","REWE",0.65]
+    ]},
+  ]
   // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
@@ -174,14 +194,41 @@ priceDB.submissions = [];
 <script>
 (function(){
 const products=priceDB.products||[], years=Array.from({length:19},(_,i)=>2008+i);
-const $=id=>document.getElementById(id), search=$("search"), results=$("results"), stats=$("stats"), catSelect=$("catSelect"), globalStore=$("globalStore");
+const $=id=>document.getElementById(id), search=$("search"), results=$("results"), stats=$("stats"), catSelect=$("catSelect");
 const carts={A:{},B:{}};
 const stores=["ALL","REWE","EDEKA","Aldi","Lidl","Kaufland","Penny","Netto"];
-function group(s){s=(s||"").toLowerCase();if(s.includes("rewe")||s.includes("nahkauf"))return"REWE";if(s.includes("edeka")||s.includes("marktkauf")||s.includes("diska")||s.includes("np discount")||s.includes("e aktiv"))return"EDEKA";if(s.includes("aldi"))return"Aldi";if(s.includes("lidl"))return"Lidl";if(s.includes("kaufland"))return"Kaufland";if(s.includes("penny"))return"Penny";if(s.includes("netto"))return"Netto";return s}
-function obs(p,y,s){let a=(p.obs||[]).filter(o=>o[0].startsWith(String(y)));return s==="ALL"?a:a.filter(o=>group(o[1])===s)}
-function info(p,y,s){let a=obs(p,y,s),exact=true;if(!a.length&&s!=="ALL"){a=obs(p,y,"ALL");exact=false}if(!a.length)return null;return {price:a.reduce((n,o)=>n+Number(o[2]),0)/a.length,count:a.length,exact}}
+
+function group(s){
+  s=(s||"").toLowerCase();
+  if(s.includes("rewe")||s.includes("nahkauf"))return"REWE";
+  if(s.includes("edeka")||s.includes("marktkauf")||s.includes("diska")||s.includes("np discount")||s.includes("e aktiv"))return"EDEKA";
+  if(s.includes("aldi"))return"Aldi";
+  if(s.includes("lidl"))return"Lidl";
+  if(s.includes("kaufland"))return"Kaufland";
+  if(s.includes("penny"))return"Penny";
+  if(s.includes("netto"))return"Netto";
+  return"Sonstiger Händler";
+}
+function exactInfo(p,y,s){
+  const a=(p.obs||[]).filter(o=>o[0].startsWith(String(y))&&(s==="ALL"||group(o[1])===s));
+  if(!a.length)return null;
+  return {price:a.reduce((n,o)=>n+Number(o[2]),0)/a.length,count:a.length};
+}
 function money(n){return Number(n).toLocaleString("de-DE",{style:"currency",currency:"EUR"})}
-function fillSelects(){catSelect.innerHTML='<option>Alle Kategorien</option>'+[...new Set(products.map(p=>p.cat))].map(c=>'<option>'+c+'</option>').join("");["A","B"].forEach((x,i)=>{const y=$("year"+x),s=$("store"+x);y.innerHTML=years.map(v=>'<option value="'+v+'" '+(v===(i?2026:2008)?"selected":"")+'>'+v+'</option>').join("");s.innerHTML=stores.map(v=>'<option value="'+v+'">'+(v==="ALL"?"Ø alle Händler":v)+'</option>').join("");});globalStore.value="ALL"}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function fillSelects(){
+  catSelect.innerHTML='<option>Alle Kategorien</option>'+[...new Set(products.map(p=>p.cat))].sort().map(c=>'<option>'+esc(c)+'</option>').join("");
+  ["A","B"].forEach((x,i)=>{
+    const y=$("year"+x),s=$("store"+x);
+    y.innerHTML=years.map(v=>'<option value="'+v+'" '+(v===(i?2026:2008)?"selected":"")+'>'+v+'</option>').join("");
+    s.innerHTML=stores.map(v=>'<option value="'+v+'">'+(v==="ALL"?"Ø alle Händler":v)+'</option>').join("");
+  });
+}
+function statusHtml(p,which){
+  const y=Number($("year"+which).value),s=$("store"+which).value,i=exactInfo(p,y,s);
+  if(!i)return '<span class="no">✕ '+which+' · '+y+' · '+(s==="ALL"?"alle Händler":esc(s))+': kein Preis</span>';
+  return '<span class="ok">✓ '+which+' · '+y+' · '+(s==="ALL"?"Ø alle Händler":esc(s))+': '+money(i.price)+' <span class="muted">('+i.count+' Beob.)</span></span>';
+}
 function renderResults(){
   const q=search.value.trim().toLowerCase(),cat=catSelect.value;
   const list=products.filter(p=>
@@ -193,43 +240,40 @@ function renderResults(){
     stats.textContent=products.length+" Produkte in der aktuellen Datenbasis.";
     return;
   }
-  const store=globalStore.value;
-  results.innerHTML=list.length ? list.map(p=>{
-    const i=info(p,Number($("yearA").value),store);
-    return `<div class="result">
-      <div><b>${p.name}</b><div class="muted">${p.brand||""} · ${p.size||""} · ${p.cat}</div>
-      ${i ? `<div>${money(i.price)} · ${i.count} Beobachtung${i.count===1?"":"en"}</div>` : '<div class="muted">Für das gewählte Jahr keine Beobachtung</div>'}
-      </div>
-      <button class="add" onclick="addTo('A',${p.id})">+ zu A</button>
-      <button class="add" onclick="addTo('B',${p.id})">+ zu B</button>
-    </div>`;
-  }).join("") : '<div class="empty">Keine passenden Produkte gefunden.</div>';
-  stats.textContent=list.length+" passende Produkte / Varianten.";
+  results.innerHTML=list.length?list.map(p=>
+    '<div class="result"><div><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.brand||"")+" · "+esc(p.size||"")+" · "+esc(p.cat)+'</div><div class="statusline">'+statusHtml(p,"A")+statusHtml(p,"B")+'</div></div><div class="addrow"><button class="add" onclick="addTo(\'A\','+p.id+')">+ zu A</button><button class="add" onclick="addTo(\'B\','+p.id+')">+ zu B</button></div></div>'
+  ).join(""):'<div class="empty">Keine passenden Produkte gefunden.</div>';
+  stats.textContent=list.length+" passende Produkte / Varianten. Preisstatus bezieht sich direkt auf Jahr + Händler des jeweiligen Warenkorbs.";
 }
 function addTo(which,id){carts[which][id]=(carts[which][id]||0)+1;renderCarts()}
 function change(which,id,d){carts[which][id]=(carts[which][id]||0)+d;if(carts[which][id]<=0)delete carts[which][id];renderCarts()}
 window.addTo=addTo;window.change=change;
+
 function renderCart(which){
   const y=Number($("year"+which).value),s=$("store"+which).value;
-  let total=0,html="";
+  let total=0,priced=0,unpriced=0,html="";
   Object.entries(carts[which]).forEach(([id,q])=>{
-    const p=products.find(x=>x.id==id),i=info(p,y,s);
-    if(!i)return;
+    const p=products.find(x=>x.id==id),i=exactInfo(p,y,s);
+    if(!i){
+      unpriced++;
+      html+='<div class="cartrow unavailable"><div><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.brand||"")+" · "+esc(p.size||"")+'</div><div class="no">✕ Keine Preisdaten für '+y+' bei '+(s==="ALL"?"den erfassten Händlern":esc(s))+'</div></div><div class="qty"><button onclick="change(\''+which+'\','+id+',-1)">−</button><b>'+q+'</b><button onclick="change(\''+which+'\','+id+',1)">+</button></div><strong>—</strong></div>';
+      return;
+    }
+    priced++;
     total+=i.price*q;
-    html+=`<div class="cartrow">
-      <div><b>${p.name}</b><div class="muted">${p.brand} · ${p.size}</div><div>${money(i.price)} je Einheit</div></div>
-      <div class="qty">
-        <button onclick="change('${which}',${id},-1)">−</button>
-        <b>${q}</b>
-        <button onclick="change('${which}',${id},1)">+</button>
-      </div>
-      <b>${money(i.price*q)}</b>
-    </div>`;
+    html+='<div class="cartrow"><div><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.brand||"")+" · "+esc(p.size||"")+'</div><div>'+money(i.price)+' je Einheit</div></div><div class="qty"><button onclick="change(\''+which+'\','+id+',-1)">−</button><b>'+q+'</b><button onclick="change(\''+which+'\','+id+',1)">+</button></div><strong>'+money(i.price*q)+'</strong></div>';
   });
   $("cart"+which).innerHTML=html||'<div class="empty">Noch leer.</div>';
-  if(total)$("cart"+which).innerHTML+=`<div class="total">${money(total)}</div>`;
+  if(priced)$("cart"+which).innerHTML+='<div class="total">'+money(total)+'</div>';
+  if(unpriced)$("cart"+which).innerHTML+='<div class="warning">'+unpriced+' Position(en) haben für '+y+' / '+(s==="ALL"?"Ø alle Händler":esc(s))+' keinen erfassten Preis und werden NICHT in die Summe eingerechnet.</div>';
+  return {total,priced,unpriced};
 }
-function renderCarts(){renderCart("A");renderCart("B");const totals=["A","B"].map(x=>{let t=0,y=Number($("year"+x).value),s=$("store"+x).value;Object.entries(carts[x]).forEach(([id,q])=>{const i=info(products.find(p=>p.id==id),y,s);if(i)t+=i.price*q});return t});const d=totals[1]-totals[0];$("comparison").innerHTML='<b>Vergleich der Warenkörbe</b><div style="display:flex;justify-content:space-between;margin-top:8px"><span>A: '+money(totals[0])+'</span><span>B: '+money(totals[1])+'</span><strong>Differenz: '+money(d)+'</strong></div>'}
-search.oninput=renderResults;catSelect.onchange=renderResults;globalStore.onchange=renderResults;["A","B"].forEach(x=>{$("year"+x).onchange=()=>{renderResults();renderCarts()};$("store"+x).onchange=renderCarts});fillSelects();renderResults();renderCarts();
+function renderCarts(){
+  const a=renderCart("A"),b=renderCart("B"),d=b.total-a.total;
+  $("comparison").innerHTML='<b>Vergleich der Warenkörbe</b><div class="comparegrid"><div class="comparebox"><b>A · '+$("yearA").value+'</b><br>'+money(a.total)+'<div class="muted">'+a.priced+' bepreist · '+a.unpriced+' ohne Preis</div></div><div class="comparebox"><b>B · '+$("yearB").value+'</b><br>'+money(b.total)+'<div class="muted">'+b.priced+' bepreist · '+b.unpriced+' ohne Preis</div></div><div class="comparebox"><b>Differenz B − A</b><br>'+money(d)+'<div class="muted">'+(a.unpriced||b.unpriced?"nur auf Basis der bepreisten Positionen":"vollständig bepreist")+'</div></div></div>';
+}
+search.oninput=renderResults;catSelect.onchange=renderResults;
+["A","B"].forEach(x=>{$("year"+x).onchange=()=>{renderResults();renderCarts()};$("store"+x).onchange=()=>{renderResults();renderCarts()}});
+fillSelects();renderResults();renderCarts();
 })();
 </script></body></html>
