@@ -128,9 +128,32 @@ const priceDB = {
     ]},
     {id:19,name:"ja! Tomaten passiert",brand:"ja!",size:"500 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37850-ja-tomaten-passiert-500g",obs:[
       ["2023-09-01","REWE",0.85],["2024-01-22","REWE",0.79],["2026-05-16","REWE",0.65]
+    ]},],
+
+    {id:20,name:"GUT&GÜNSTIG Fettarme H-Milch",brand:"Gut & Günstig",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/6476-gutgUEnstig-fettarme-h-milch-1-l",obs:[
+      ["2008-04-08","EDEKA",0.66],["2008-06-02","WEZ Markt (EDEKA Partner)",0.54],["2008-11-03","Marktkauf",0.61],
+      ["2009-05-05","diska (EDEKA Partner)",0.42],["2009-05-10","diska (EDEKA Partner)",0.49],["2010-05-25","EDEKA",0.50],
+      ["2012-05-02","Marktkauf",0.51],["2012-05-03","Marktkauf",0.45],["2012-11-03","EDEKA",0.54],
+      ["2013-09-09","Marktkauf",0.59],["2014-10-22","Marktkauf",0.65],["2015-01-05","EDEKA",0.55],
+      ["2021-02-12","EDEKA",0.71],["2022-07-02","EDEKA",0.99],["2023-02-27","EDEKA",0.68],
+      ["2023-06-09","EDEKA",0.95],["2026-09-18","EDEKA",0.85]
     ]},
-  ],
-  // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
+    {id:21,name:"GUT&GÜNSTIG Spaghettigericht mit Tomatensauce",brand:"Gut & Günstig",size:"397 g",cat:"Fertiggerichte",sourceUrl:"https://www.supermarktcheck.de/product/34003-gut-guenstig-spaghetti-gericht",obs:[
+      ["2008-11-03","EDEKA",0.75],["2009-01-20","EDEKA",0.65],["2015-06-04","EDEKA",0.69],
+      ["2021-03-12","EDEKA",0.89],["2022-03-19","EDEKA",1.09],["2022-07-18","EDEKA",1.19],
+      ["2022-09-05","EDEKA",1.39],["2022-09-12","EDEKA",1.59],["2022-10-31","EDEKA",1.39],
+      ["2022-11-28","EDEKA",1.59],["2023-06-27","EDEKA",1.49],["2024-01-23","EDEKA",1.59],
+      ["2025-04-15","EDEKA",1.91],["2026-06-10","EDEKA",1.69]
+    ]},
+    {id:22,name:"Südzucker Einmach Zucker",brand:"Südzucker",size:"1 kg",cat:"Grundnahrung",sourceUrl:"https://www.supermarktcheck.de/product/230624-suedzucker-einmach-zucker-1000g",obs:[
+      ["2021-11-08","EDEKA Center",1.49],["2022-03-19","EDEKA Center",1.59],["2022-05-02","Marktkauf",1.69],
+      ["2022-09-05","EDEKA",1.59],["2022-09-05","Globus",1.59],["2022-09-05","EDEKA",1.69],
+      ["2022-10-03","Globus",1.69],["2022-10-31","EDEKA Center",2.49],["2023-01-09","Globus",1.89],
+      ["2023-05-26","Globus",1.49],["2023-06-27","EDEKA Center",2.19],["2023-07-14","Globus",1.89],
+      ["2024-02-03","EDEKA Center",2.19],["2024-08-12","EDEKA",2.39],["2024-09-21","EDEKA",2.49],
+      ["2024-10-24","REWE",2.19],["2024-10-30","EDEKA",1.79],["2026-02-06","REWE",1.99]
+    ]},
+    // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
   submissions: [],
