@@ -110,6 +110,27 @@ const priceDB = {
       ["2025-04-15","REWE",1.49],["2026-08-09","REWE",1.59]
     ]}
   ],
+
+    {id:15,name:"ja! H-Milch 1,5%",brand:"ja!",size:"1 l",cat:"Milch & Kühlung",sourceUrl:"https://www.supermarktcheck.de/product/1325-ja-h-milch-15-1l",obs:[
+      ["2009-10-19","REWE",0.42],["2011-03-31","REWE",0.50],["2012-07-23","REWE",0.45],["2012-11-03","REWE",0.54],
+      ["2014-09-20","REWE",0.65],["2014-11-11","REWE",0.55],["2017-05-26","REWE",0.63],["2018-04-11","REWE",0.68],
+      ["2020-01-21","REWE",0.65],["2020-11-11","REWE",0.68],["2021-03-11","REWE",0.71],["2022-12-16","REWE",0.99],
+      ["2023-03-01","REWE",1.05],["2023-06-09","REWE",0.95],["2024-07-24","REWE",0.99],["2026-05-16","REWE",0.85]
+    ]},
+    {id:16,name:"ja! Raffinade Zucker",brand:"ja!",size:"1 kg",cat:"Grundnahrung",sourceUrl:"https://www.supermarktcheck.de/product/33375-ja-raffinade-zucker-1kg",obs:[
+      ["2009-10-22","REWE",0.85],["2010-05-25","Hit",0.69],["2011-10-09","REWE",0.65],["2014-09-20","REWE",0.85],
+      ["2014-11-11","REWE",0.65],["2017-05-26","REWE",0.69],["2019-07-15","REWE",0.59],["2021-02-04","REWE",0.79],
+      ["2022-11-07","REWE",1.29],["2024-07-24","REWE",1.49],["2026-02-05","REWE",0.99]
+    ]},
+    {id:17,name:"ja! Zarte Haferflocken",brand:"ja!",size:"500 g",cat:"Frühstück & Cerealien",sourceUrl:"https://www.supermarktcheck.de/product/37860-ja-zarte-haferflocken-500g",obs:[
+      ["2022-02-17","REWE",0.49],["2023-10-23","REWE",0.79],["2026-05-18","REWE",0.69]
+    ]},
+    {id:18,name:"ja! Tomaten fein gehackt",brand:"ja!",size:"400 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37851-ja-tomaten-fein-gehackt-in-tomatensaft-400g",obs:[
+      ["2022-07-18","REWE",0.55],["2022-11-20","REWE",0.69],["2023-03-01","REWE",0.85],["2026-05-16","REWE",0.59]
+    ]},
+    {id:19,name:"ja! Tomaten passiert",brand:"ja!",size:"500 g",cat:"Konserven",sourceUrl:"https://www.supermarktcheck.de/product/37850-ja-tomaten-passiert-500g",obs:[
+      ["2023-09-01","REWE",0.85],["2024-01-22","REWE",0.79],["2026-05-16","REWE",0.65]
+    ]},
   // Normalisierte Rohbeobachtungen für die spätere Datenbankmigration.
   // id bleibt deterministisch: Produkt + Datum + Händler + Preis.
   priceObservations: [],
